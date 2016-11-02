@@ -9,6 +9,8 @@ public class DataConcatenator {
 
     public String concatenate(Data data) {
         changer.change(data);
+
         return data.getA() + ":" + data.getB();
+
     }
 }

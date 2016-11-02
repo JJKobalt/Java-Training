@@ -11,7 +11,6 @@ public class MovingAverageTest
     // jezeli uzytkownik nie poda zadnej liczby a zechce "srednia" to wyrzucany jest wyjatek: illegalstateexception
 
     @Test
-    @Ignore
     public void shouldSupportBigSetOfData()
     {
         MovingAverage movingAverage = new MovingAverage( 3 );
