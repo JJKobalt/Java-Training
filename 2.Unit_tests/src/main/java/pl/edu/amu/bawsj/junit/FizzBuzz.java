@@ -8,11 +8,12 @@ package pl.edu.amu.bawsj.junit;
 import java.util.Objects;
 
 public class FizzBuzz {
+    // publiczny konstruktor jest dodawany by default, po co on tu?
     public FizzBuzz() {
     }
 
     public static void main(String[] args) {
-        (new FizzBuzz()).go();
+        (new FizzBuzz()).go(); // po co te nawiasy do okoła new FizzBuzz() ?
     }
 
     public void go() {
@@ -35,6 +36,7 @@ public class FizzBuzz {
 
     }
 
+    // co to? po co to?
     public int checkLoop() {
         int performances = 0;
 
@@ -45,6 +47,7 @@ public class FizzBuzz {
         return performances;
     }
 
+    // a nie zapomniales o podmienieniu tego w metodzie #go() ?
     public String checkValueFor(int i) {
         String result = "";
         if(i % 3 == 0) {

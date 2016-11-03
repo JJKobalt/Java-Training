@@ -26,13 +26,11 @@ public class DataConcatenatorTest {
 
     @Before
     public void setUp() {
-
-
-
         dataConcatenator = new DataConcatenator(dataChanger);
     }
 
 
+    // co ten test robi. Jakas ma konkretna nazwe?
     @Test
     public void shouldNameThisFunctionInACorrectWay() {
 
@@ -46,9 +44,14 @@ public class DataConcatenatorTest {
                     //data = new Data("ZZZ","ZZZ");
                     // Już nie, dlaczego?
 
+            // dlatego, ze tworzysz tutaj nowy obiekt, a masz zmienić tylko ten co dostaniesz.
+
                     return null;
                 }
         ).when(dataChanger).change(Matchers.anyObject());
+
+
+
 
 
 

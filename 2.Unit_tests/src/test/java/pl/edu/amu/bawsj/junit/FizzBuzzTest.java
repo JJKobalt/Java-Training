@@ -4,8 +4,10 @@ import org.junit.Assert;
 import org.junit.Test;
 public class FizzBuzzTest {
     public FizzBuzzTest() {
+        // co to?
     }
 
+    // co to sprawdza? Czy pętle w Javie dobrze działają? Odpowiem: tak, działają całkiem nieźle. Nie trzeba do tego pisać testów.
     @Test
     public void shouldLoopPerform100times() {
         FizzBuzz fb = new FizzBuzz();

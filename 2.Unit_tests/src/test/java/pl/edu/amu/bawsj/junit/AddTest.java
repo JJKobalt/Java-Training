@@ -25,7 +25,7 @@ public class AddTest {
     public void shouldAddTwoZeros() {
         Add add = new Add();
         int a = add.go(0, 0);
-        Assert.assertEquals(0L, (long)a);
+        Assert.assertEquals(0L, (long)a); // po co skorzystales z przeciążenia (long,long) skoro jest (int, int) ?
     }
 
     @Test

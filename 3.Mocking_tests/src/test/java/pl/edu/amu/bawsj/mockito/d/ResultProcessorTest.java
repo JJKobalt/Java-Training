@@ -25,8 +25,6 @@ public class ResultProcessorTest {
     @Test
     public void shouldCalculateWithoutExceptions() {
 
-
-
         resultProcessor = new ResultProcessor(resultProvider);
         Mockito.when(resultProvider.provide()).thenReturn(10.0);
 

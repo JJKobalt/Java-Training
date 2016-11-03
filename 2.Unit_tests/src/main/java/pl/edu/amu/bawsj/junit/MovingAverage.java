@@ -6,6 +6,7 @@ import java.util.List;
 
 public class MovingAverage {
 
+    // SOLID, a raczej literka L się kłania. List<Double> data = new ArrayList<>();
     private ArrayList<Double> data = new ArrayList<>();
     private int windowSize;
 
@@ -15,10 +16,10 @@ public class MovingAverage {
 
     public void push(double val) {
         this.data.add(Double.valueOf(val));
-    }
+    } // Bezsensu. Niepotrzebny Boxing zmiennej
 
     public double getAvg() {
-        this.checkIfWindowIsBigEnough();
+        this.checkIfWindowIsBigEnough(); // po co this?
         List<Double> usedData = this.getWindowList();
         return this.calculateAvg(usedData);
     }

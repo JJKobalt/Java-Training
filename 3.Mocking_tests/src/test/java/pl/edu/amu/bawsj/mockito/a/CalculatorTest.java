@@ -10,7 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
+// ok
 @RunWith(MockitoJUnitRunner.class)
 public class CalculatorTest {
 
