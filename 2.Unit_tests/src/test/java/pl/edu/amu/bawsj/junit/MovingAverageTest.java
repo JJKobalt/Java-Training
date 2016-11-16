@@ -24,4 +24,18 @@ public class MovingAverageTest
         }
         Assert.assertEquals( 3, movingAverage.getAvg(), 0.003 );
     }
+
+
+    @Test
+    public void shouldReactAtChangedData() {
+        MovingAverage movingAverage = new MovingAverage(3);
+        for (long i = 0; i < 10; i++) {
+            movingAverage.push(i);
+        }
+        System.out.println(movingAverage.getAvg());
+        movingAverage.push(0);
+
+        System.out.println(movingAverage.getAvg());
+    }
+
 }

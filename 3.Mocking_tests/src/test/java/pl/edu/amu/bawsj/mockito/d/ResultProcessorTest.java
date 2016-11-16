@@ -31,8 +31,7 @@ public class ResultProcessorTest {
         Assert.assertEquals("10.0 10.0", resultProcessor.provide());
     }
 
-    @Test
-   @Ignore
+    @Test(expected = ArithmeticException.class)
     public void shouldCalculateWithExceptions() {
 
         resultProcessor = new ResultProcessor(resultProvider);

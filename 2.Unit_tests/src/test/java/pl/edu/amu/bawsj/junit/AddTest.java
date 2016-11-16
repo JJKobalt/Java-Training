@@ -18,7 +18,7 @@ public class AddTest {
     public void shouldAddTwoPositiveNumbers() {
         Add add = new Add();
         int a = add.go(2, 3);
-        Assert.assertEquals((long)a, 5L);
+        Assert.assertEquals(5, a);
     }
 
     @Test

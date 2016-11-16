@@ -5,3 +5,5 @@ rootProject.projectDir.eachDirRecurse() { dir ->
         include dir.absolutePath.substring(rootProject.projectDir.absolutePath.length() + 1).replace(File.separator, ':')
     }
 }
+include '4.JPaint'
+
