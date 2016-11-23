@@ -7,7 +7,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -54,7 +56,6 @@ public class avgCompererTest {
     @Test
     public void shouldReturnTheBiggestAvgFromLines() throws IOException {
 
-
         B b = new B(mockReader);
         String[] line = {"0,1,1,1", "0,1,3,3", "0,5,3,1", "0,4,4,4", "0,1,1,1"};
 
@@ -72,4 +73,32 @@ public class avgCompererTest {
 
 
     }
+
+
+    @Test
+    public void shouldPerformIndepentlyFromPrevious() throws IOException {
+// Z góry przepraszam za to jak to wygląda ,ale ze względu na to, że mockito używa tylko atrybutów final, nie mogłem tego zrobić lepiej
+        B b = new B(mockReader);
+        String[][] line = {{"0,1,1,1", "0,1,3,3", "0,4,4,4", "0,4,4,4", "0,1,1,1"}, {"0,3,3,3", "0,1,1,1", "0,1,1,1", "0,3,3,3", "0,1,1,1"}};
+        final int[] dataChenger = {0};
+        final int[] i = {-1};
+        Mockito.doAnswer(invocation -> {
+
+                    i[0]++;
+                    if (i[0] >= line[0].length) {
+                        i[0] = -1;
+                        return null;
+                    }
+
+                    return line[dataChenger[0]][i[0]];
+                }
+        ).when(mockReader).readLine();
+
+        Assert.assertEquals(4d, b.GetMaxLineAvg(), 0);
+        dataChenger[0]++; //change data set
+        Assert.assertEquals(3d, b.GetMaxLineAvg(), 0);
+    }
+
+
+
 }

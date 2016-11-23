@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 public class B {
 
     private BufferedReader reader;
-    private double avg = Double.MIN_VALUE;
+    private double avg;
     String fileName = "gold.csv";
 
     B(BufferedReader reader) {
@@ -33,6 +33,7 @@ public class B {
     }
 
     double GetMaxLineAvg() throws IOException {
+        avg = Double.MIN_VALUE;
         String s;
         while ((s = reader.readLine()) != null) {
 
