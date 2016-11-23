@@ -4,28 +4,59 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 
-public class B
-{
-    public static void main( String[] args ) throws IOException
-    {
-        InputStream inputStream = B.class.getClassLoader().getResourceAsStream( "gold.csv" );
-        BufferedReader reader = new BufferedReader( new InputStreamReader( inputStream ) );
+public class B {
 
-        double avg = Double.MIN_VALUE;
+    private BufferedReader reader;
+    private double avg = Double.MIN_VALUE;
+    String fileName = "gold.csv";
 
-        while( true )
-        {
-            String s = reader.readLine();
-            if( s == null )
-            {
-                break;
-            }
-            String[] split = s.split( "," );
-            avg = Math.max( avg, (Double.parseDouble( split[ 1 ] ) + Double.parseDouble( split[ 2 ] ) + Double
-                .parseDouble( split[ 3 ] )) / 3.0 );
+    B(BufferedReader reader) {
+        this.reader = reader;
+    }
+
+    B() {
+    }
+
+    public static void main(String[] args) {
+        B b = new B();
+
+        b.initializeReader(b.fileName);
+
+        try {
+            System.out.println(b.GetMaxLineAvg());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println( avg );
 
     }
+
+    double GetMaxLineAvg() throws IOException {
+        String s;
+        while ((s = reader.readLine()) != null) {
+
+            String[] split = s.split(",");
+           double lineAvg =  getAvgOfLine(split);
+            CompereWithPreviousBest(lineAvg);
+        }
+        return avg;
+    }
+
+    private void CompereWithPreviousBest(double avgOfLine) {
+        avg = Math.max(avg, avgOfLine);
+
+    }
+
+    double getAvgOfLine(String[] split) {
+        return (Double.parseDouble(split[1]) + Double.parseDouble(split[2]) + Double
+                .parseDouble(split[3])) / 3.0;
+    }
+
+    private void initializeReader(String fileName) {
+        InputStream inputStream = B.class.getClassLoader().getResourceAsStream(fileName);
+        reader = new BufferedReader(new InputStreamReader(inputStream));
+    }
+
+
 }

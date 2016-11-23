@@ -6,50 +6,45 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 // znajdź błąd
-public class C
-{
+public class C {
+    SearchManager searcher;
 
-    public static void main( String[] args ) throws IOException
-    {
-        main1( "Jan", "Jan" );
+    public C() {
+        setSearcher();
     }
 
-    public static void main1( String... args ) throws IOException
+    public static void main(String[] args) throws IOException {
+
+        C c = new C();
+        c.checkIfExist("Jan", "Jan");
+    }
+
+
+    public void checkIfExist(String... args) throws IOException
     {
-        if( args.length == 0 )
+        if (CheckIfEmpty(args))
         {
-            System.out.println( "Nie podałeś imienia!" );
+            System.out.println("nie podałeś imienia");
             return;
         }
 
-        InputStream inputStream = C.class.getClassLoader().getResourceAsStream( "imieniny.txt" );
-        BufferedReader reader = new BufferedReader( new InputStreamReader( inputStream ) );
 
-        boolean found = false;
-        mainLoop:
-        for( int i = 0; i < args.length; i++ )
-        {
-            while( true )
-            {
-                String s = reader.readLine();
-                if( s == null )
-                {
-                    break;
-                }
-                if( s.trim().equals( args[ i ].trim() ) )
-                {
-                    found = true;
-                    break;
-                }
-            }
-            if( found )
-            {
-                System.out.println( args[ i ] + " istnieje!" );
-            }
-            else
-            {
-                System.out.println( args[ i ] + " nie istnieje!" );
-            }
+        for (String arg : args) {
+            searcher.newSearch(arg);
+            searcher.report();
         }
+    }
+
+
+    private static boolean CheckIfEmpty(String[] args) {
+        return args.length == 0;
+    }
+
+    private void setSearcher() {
+        searcher = new SearchManager();
+    }
+
+    void setSearcher(SearchManager searcher) {
+        this.searcher = searcher;
     }
 }
