@@ -8,12 +8,13 @@ import java.io.InputStreamReader;
 /**
  * Created by JanJa on 23.11.2016.
  */
+
+// przyszlosciowo: jezeli mas zklase, ktora ma w nazwie Manager, wiedz ze cos sie dzieje...
 class SearchManager {
     private BufferedReader reader;
     private String searched;
     private String line;
     boolean found;
-
 
 
     void newSearch(String arg) throws IOException {
@@ -22,6 +23,7 @@ class SearchManager {
         search();
 
     }
+
     private void initializeSearch(String arg) {
         searched = arg;
         found = false;
@@ -44,12 +46,11 @@ class SearchManager {
     }
 
 
-
-
     private void closeSearch() throws IOException {
         found = false;
         reader.close();
     }
+
     private String getNewLine() throws IOException {
         return line = reader.readLine();
     }

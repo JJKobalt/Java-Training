@@ -10,13 +10,14 @@ public class C {
     SearchManager searcher;
 
     public C() {
+        // troche slabo ta metoda tutaj wyglada, robi tylko jedna linijke, ktora z powodzeniem moglbys tutaj zrobic.
         setSearcher();
     }
 
     public static void main(String[] args) throws IOException {
 
         C c = new C();
-        c.checkIfExist("Jan", "Jan");
+        c.checkIfExist("Jan", "Jansss");
     }
 
 

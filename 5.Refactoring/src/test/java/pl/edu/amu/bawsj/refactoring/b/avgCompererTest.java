@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by JanJa on 22.11.2016.
  */
+// strasznie CI nie poszło z nazwa tego testu...
 @RunWith(MockitoJUnitRunner.class)
 public class avgCompererTest {
 
@@ -95,7 +96,10 @@ public class avgCompererTest {
         ).when(mockReader).readLine();
 
         Assert.assertEquals(4d, b.GetMaxLineAvg(), 0);
+
+        // masakrycznie to wyglada...
         dataChenger[0]++; //change data set
+
         Assert.assertEquals(3d, b.GetMaxLineAvg(), 0);
     }
 
