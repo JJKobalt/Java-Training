@@ -11,7 +11,7 @@ public class B {
     private BufferedReader reader;
     private double avg;
     // takie rzeczy warto wrzucac w private static final
-    String fileName = "gold.csv";
+    static final String fileName = "gold.csv";
 
     B(BufferedReader reader) {
         this.reader = reader;
@@ -19,6 +19,7 @@ public class B {
 
     // ?!
     B() {
+        initializeReader(fileName);
     }
 
     public static void main(String[] args) {
@@ -29,35 +30,36 @@ public class B {
         // gwarantuje Ci ze dostaniesz NullPointerException, bo o tym zapomnisz.
         // konstruktor jest po to, zeby po zrobieniu "new" miec juz wszystko gotowe i nie musieć nic inicjalizować.
 
-        b.initializeReader(b.fileName);
+
 
         try {
-            System.out.println(b.GetMaxLineAvg());
+            System.out.println(b.getMaxLineAvg());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+
     // czemu notacja z C#? Java baaardzo nie lubi sie z C#, pamietaj ze przy projekcie zaliczeniowym to bedzie kwestia oceniania, tutaj to pomine.
-    double GetMaxLineAvg() throws IOException {
+    double getMaxLineAvg() throws IOException {
         avg = Double.MIN_VALUE;
         String s;
         while ((s = reader.readLine()) != null) {
 
             String[] split = s.split(",");
            double lineAvg =  getAvgOfLine(split);
-            CompereWithPreviousBest(lineAvg);
+            avg = CompereWithPreviousBest(lineAvg);
         }
         // zauwaz co tutaj zrobiles. Z jednej strony modyfikujesz zmienna klasy ( avg ), a tutaj jeszcze ja zwracasz,
         // moze to powodowac wiele WTF na prawdziwych code-review :)
         return avg;
     }
 
-    private void CompereWithPreviousBest(double avgOfLine) {
+    private double CompereWithPreviousBest(double avgOfLine) {
         // ok funkcja nazywa sie Compare, ale... co ona zwraca? Modyfikuje tylko stan klasy. Warto wowczas
         // dawac konkretne nazwy
-        avg = Math.max(avg, avgOfLine);
+        return Math.max(avg, avgOfLine);
 
     }
 

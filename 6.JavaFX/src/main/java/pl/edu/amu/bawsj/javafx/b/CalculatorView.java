@@ -24,7 +24,7 @@ public class CalculatorView extends Application
             for( int i = 0; i < 10; i++ )
             {
                 Button lookup = (Button)root.lookup( "#num" + i );
-                final int finalI = i;
+                String finalI = String.valueOf(i);
                 lookup.setOnMouseClicked( event -> presenter.numClicked( finalI ) );
             }
             root.lookup( "#multiplication" )
@@ -39,8 +39,10 @@ public class CalculatorView extends Application
                 .setOnMouseClicked( event -> presenter.resultClicked() );
 
             presenter = new CalculatorPresenter( this );
+            ((TextField)(root.lookup( "#resultTextField" ))).textProperty().bind(presenter.getLine());
 
             Scene scene = new Scene( root, 300, 300 );
+
             primaryStage.setScene( scene );
             primaryStage.show();
         }

@@ -32,8 +32,9 @@ public class avgCompererTest {
     public void shouldntPerformOnEmptyFile() throws IOException {
         when(mockReader.readLine()).thenReturn(null);
         B b = new B(mockReader);
-        Assert.assertEquals(Double.MIN_VALUE, b.GetMaxLineAvg(), 0.00001);
+        Assert.assertEquals(Double.MIN_VALUE, b.getMaxLineAvg(), 0.00001);
     }
+
 
 
     @Test
@@ -70,7 +71,8 @@ public class avgCompererTest {
                 }
         ).when(mockReader).readLine();
 
-        Assert.assertEquals(4d, b.GetMaxLineAvg(),0);
+        Assert.assertEquals(4d, b.getMaxLineAvg(),0);
+
 
 
     }
@@ -95,12 +97,12 @@ public class avgCompererTest {
                 }
         ).when(mockReader).readLine();
 
-        Assert.assertEquals(4d, b.GetMaxLineAvg(), 0);
+        Assert.assertEquals(4d, b.getMaxLineAvg(), 0);
 
         // masakrycznie to wyglada...
         dataChenger[0]++; //change data set
 
-        Assert.assertEquals(3d, b.GetMaxLineAvg(), 0);
+        Assert.assertEquals(3d, b.getMaxLineAvg(), 0);
     }
 
 

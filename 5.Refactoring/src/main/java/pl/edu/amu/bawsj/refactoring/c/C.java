@@ -17,7 +17,7 @@ public class C {
     public static void main(String[] args) throws IOException {
 
         C c = new C();
-        c.checkIfExist("Jan", "Jansss");
+        c.checkIfExist("Jan", "Jan");
     }
 
 

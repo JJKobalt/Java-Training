@@ -1,47 +1,84 @@
 package pl.edu.amu.bawsj.javafx.b;
 
+import javafx.beans.property.StringProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import pl.edu.amu.bawsj.javafx.b.calculations.*;
 
-public class CalculatorPresenter
+class CalculatorPresenter
 {
     private static final Logger LOG = LogManager.getLogger();
 
-    private CalculatorView view;
 
-    public CalculatorPresenter( CalculatorView calculatorView )
+
+    private CalculatorModel model;
+
+
+    CalculatorState calculatorState;
+    CalculationStrategy calculation;
+
+    CalculatorPresenter(CalculatorView calculatorView)
     {
-        this.view = calculatorView;
+
+
+        this.model = new CalculatorModel();
+
+        calculatorState = new StartState(model, this);
+
     }
 
-    public void numClicked( int finalI )
+
+    StringProperty getLine()
     {
+        return model.line;
+    }
+
+    void numClicked(String finalI) {
+
         LOG.info( finalI + " clicked" );
+        calculatorState.addNumber(finalI);
+
     }
 
-    public void additionClicked()
+    void additionClicked()
     {
+        calculatorState.addCalculation();
+        calculation = new AdditionCalculation(model);
         LOG.info( "Addition clicked" );
+
     }
 
-    public void multiplicationClicked()
+    void multiplicationClicked()
     {
+        calculatorState.addCalculation();
+        calculation = new MultiplicationCalculculation(model);
         LOG.info( "Multiplication clicked" );
+
     }
 
-    public void subtractionClicked()
+    void subtractionClicked()
     {
+        calculatorState.addCalculation();
+        calculation = new SubstractionCalculation(model);
         LOG.info( "Subtraction clicked" );
+
     }
 
-    public void divisionClicked()
+    void divisionClicked()
     {
+        calculatorState.addCalculation();
+        calculation = new DivisionCalculation(model);
         LOG.info( "Division clicked" );
+
     }
 
-    public void resultClicked()
+    void resultClicked()
     {
+
         LOG.info( "Result clicked" );
-        view.showResult( "The result should be displayed here" );
+        calculatorState.perform();
+
     }
+
+
 }
