@@ -16,7 +16,6 @@ public class MultiplicationCalculculation implements CalculationStrategy{
 
     @Override
     public double calculate() {
-
         return model.getFirstNumber() * model.getSecondNumber();
     }
 }

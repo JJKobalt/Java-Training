@@ -5,8 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.edu.amu.bawsj.javafx.b.calculations.*;
 
-class CalculatorPresenter
-{
+class CalculatorPresenter {
     private static final Logger LOG = LogManager.getLogger();
 
 
@@ -17,8 +16,7 @@ class CalculatorPresenter
     CalculatorState calculatorState;
     CalculationStrategy calculation;
 
-    CalculatorPresenter(CalculatorView calculatorView)
-    {
+    CalculatorPresenter(CalculatorView calculatorView) {
 
 
         this.model = new CalculatorModel();
@@ -40,40 +38,35 @@ class CalculatorPresenter
 
     }
 
-    void additionClicked()
-    {
+    void additionClicked() {
         calculatorState.addCalculation();
         calculation = new AdditionCalculation(model);
         LOG.info( "Addition clicked" );
 
     }
 
-    void multiplicationClicked()
-    {
+    void multiplicationClicked() {
         calculatorState.addCalculation();
         calculation = new MultiplicationCalculculation(model);
         LOG.info( "Multiplication clicked" );
 
     }
 
-    void subtractionClicked()
-    {
+    void subtractionClicked() {
         calculatorState.addCalculation();
         calculation = new SubstractionCalculation(model);
         LOG.info( "Subtraction clicked" );
 
     }
 
-    void divisionClicked()
-    {
+    void divisionClicked() {
         calculatorState.addCalculation();
         calculation = new DivisionCalculation(model);
         LOG.info( "Division clicked" );
 
     }
 
-    void resultClicked()
-    {
+    void resultClicked() {
 
         LOG.info( "Result clicked" );
         calculatorState.perform();

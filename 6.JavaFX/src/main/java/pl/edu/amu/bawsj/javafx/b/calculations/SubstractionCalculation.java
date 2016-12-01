@@ -14,8 +14,6 @@ public class SubstractionCalculation implements CalculationStrategy {
         model.addToLine("-");
     }
 
-
-
     @Override
     public double calculate() {
         return model.getFirstNumber() - model.getSecondNumber();

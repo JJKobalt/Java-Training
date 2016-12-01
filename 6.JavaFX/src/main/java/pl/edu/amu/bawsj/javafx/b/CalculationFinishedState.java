@@ -30,7 +30,6 @@ class CalculationFinishedState implements CalculatorState {
     public void perform() {
         model.firstNumber=Double.valueOf(model.line.getValueSafe());
 
-
         model.flushLine();
         Double result = presenter.calculation.calculate();
         model.addToLine(result.toString());

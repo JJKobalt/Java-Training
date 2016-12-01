@@ -10,8 +10,7 @@ public class AdditionCalculation implements CalculationStrategy {
     private CalculatorModel model;
 
 
-    public AdditionCalculation(CalculatorModel model)
-    {
+    public AdditionCalculation(CalculatorModel model) {
         this.model = model;
         this.model.addToLine("+");
     }

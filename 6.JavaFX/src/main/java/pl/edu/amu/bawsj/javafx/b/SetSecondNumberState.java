@@ -25,7 +25,7 @@ public class SetSecondNumberState implements CalculatorState {
 
     @Override
     public void addCalculation() {
-        model.secondNumberComplete();
+        model.secondNumber =Double.valueOf( model.takeFromLine());
         model.firstNumber = presenter.calculation.calculate();
         presenter.calculatorState = new setCalculationState(model, presenter);
         presenter.calculatorState.addCalculation();
@@ -35,7 +35,7 @@ public class SetSecondNumberState implements CalculatorState {
 
     @Override
     public void perform() {
-        model.secondNumberComplete();
+        model.secondNumber =Double.valueOf( model.takeFromLine());
 
         Double result = presenter.calculation.calculate();
         model.addToLine(result.toString());

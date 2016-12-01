@@ -23,11 +23,11 @@ class StartState implements CalculatorState {
 
     @Override
     public void addCalculation() {
-
+        System.err.println("Nothing will happen");
     }
 
     @Override
     public void perform() {
-
+        System.err.println("Nothing will happen");
     }
 }

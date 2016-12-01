@@ -25,13 +25,13 @@ public class SetFirstNumberState implements CalculatorState {
 
     @Override
     public void addCalculation() {
-        model.firstNumberComplete();
+        model.firstNumber = Double.valueOf( model.takeFromLine());
         presenter.calculatorState = new setCalculationState(model,presenter);
     }
 
 
     @Override
     public void perform() {
-     System.err.print("Perform in firstState");
+        System.err.println("Nothing will happen");
     }
 }

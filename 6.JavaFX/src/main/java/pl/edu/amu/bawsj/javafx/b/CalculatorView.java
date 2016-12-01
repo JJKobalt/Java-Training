@@ -8,21 +8,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class CalculatorView extends Application
-{
+public class CalculatorView extends Application {
     private CalculatorPresenter presenter;
     private Pane root;
 
     @Override
-    public void start( Stage primaryStage ) throws Exception
-    {
-        try
-        {
+    public void start( Stage primaryStage ) throws Exception {
+        try {
             root = FXMLLoader.load( getClass()
                 .getResource( "/b.fxml" ) );
 
-            for( int i = 0; i < 10; i++ )
-            {
+            for( int i = 0; i < 10; i++ ) {
                 Button lookup = (Button)root.lookup( "#num" + i );
                 String finalI = String.valueOf(i);
                 lookup.setOnMouseClicked( event -> presenter.numClicked( finalI ) );
@@ -46,8 +42,7 @@ public class CalculatorView extends Application
             primaryStage.setScene( scene );
             primaryStage.show();
         }
-        catch( Exception e )
-        {
+        catch( Exception e ) {
             e.printStackTrace();
         }
     }

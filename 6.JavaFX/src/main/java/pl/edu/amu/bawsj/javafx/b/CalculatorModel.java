@@ -16,16 +16,12 @@ public class CalculatorModel
 
     CalculatorModel() {
         line = new SimpleStringProperty();
-
     }
 
 
    public void addToLine(String add) {
-
         line.setValue(line.getValueSafe() + add);
     }
-
-
 
 
     public Double getFirstNumber() {
@@ -37,18 +33,16 @@ public class CalculatorModel
     }
 
 
-    public void firstNumberComplete() {
-        firstNumber = Double.parseDouble(line.getValueSafe());
+
+    String takeFromLine(){
+        String s = line.getValueSafe();
         flushLine();
+        return s;
     }
 
-    void secondNumberComplete() {
-        secondNumber = Double.parseDouble(line.getValueSafe());
-        flushLine();
-    }
 
-    void flushLine()
-    {
+
+    void flushLine() {
         line.setValue("");
     }
 }
