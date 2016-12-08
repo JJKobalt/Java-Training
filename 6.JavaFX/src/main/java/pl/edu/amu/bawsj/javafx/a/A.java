@@ -18,6 +18,11 @@ public class A extends Application
     {
             Pane root = FXMLLoader.load( A.class.getResource("/a.fxml" ) );
             Scene scene = new Scene( root, 400, 400 );
+
+
+
+
+
             primaryStage.setScene( scene );
             primaryStage.show();
     }

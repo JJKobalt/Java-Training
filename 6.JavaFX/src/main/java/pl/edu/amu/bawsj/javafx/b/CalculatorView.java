@@ -4,9 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.awt.*;
 
 public class CalculatorView extends Application {
     private CalculatorPresenter presenter;
@@ -23,6 +26,10 @@ public class CalculatorView extends Application {
                 String finalI = String.valueOf(i);
                 lookup.setOnMouseClicked( event -> presenter.numClicked( finalI ) );
             }
+
+
+
+
             root.lookup( "#multiplication" )
                 .setOnMouseClicked( event -> presenter.multiplicationClicked() );
             root.lookup( "#addition" )
