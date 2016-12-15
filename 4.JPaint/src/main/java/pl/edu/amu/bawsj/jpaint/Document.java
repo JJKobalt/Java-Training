@@ -11,13 +11,16 @@ import java.util.*;
  * Created by JanJa on 07.12.2016.
  */
 public class Document {
+
     public ObservableList<Layer> layers;
     Layer currentLayer;
     PaintView paintView;
 
-
+CommandStack commandStack;
+    PaintApplication application;
 
     public Document(PaintView paintView) {
+
         System.out.println("Document: Document(PaintView paintView)");
         layers = FXCollections.observableList(new ArrayList<Layer>());
         this.paintView = paintView;
@@ -48,7 +51,7 @@ public class Document {
 
 
     public void delete(int position){
-        if(layers.size()==1) addLayer(new Layer("New Layer"));
+
 
         Layer deletingLayer = layers.get(position);
         if(deletingLayer == currentLayer) {
@@ -58,11 +61,11 @@ public class Document {
 
 
         layers.remove(position);
-        //  if(layers.isEmpty()) addLayer(new Layer("New Layer"));
         System.out.println("Layer " + position + " deleted");
     }
 
     private void changeCurrentLayer(int position) {
+        if(layers.size()==1) addLayer(new Layer("New Layer"));
 
         if(position!=0) setCurrentLayer((position-1));
         else setCurrentLayer((position+1));
