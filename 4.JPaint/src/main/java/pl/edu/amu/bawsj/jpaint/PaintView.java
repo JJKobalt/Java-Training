@@ -1,15 +1,14 @@
 package pl.edu.amu.bawsj.jpaint;
 
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -17,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
 import javafx.scene.canvas.Canvas;
+import pl.edu.amu.bawsj.jpaint.State.DrawingCircleState;
 
 
 import java.io.IOException;
@@ -36,17 +36,23 @@ public class PaintView extends Application {
 
 
         try {
-            root = FXMLLoader.load(getClass()
-                    .getResource("/main_view.fxml"));
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
+            initializeRoot(primaryStage);
 
             canvasBox = (VBox) root.lookup("#canvasBox");
-            Button newLayerButton = (Button)root.lookup("#newLayerButton");
-            newLayerButton.setOnMouseClicked(event -> application.document.addLayer(new Layer("New Layer")));
+
+
+            initializeButtons();
+
+
+
+
+
+
+
 
 
             application = PaintApplication.getInstance(this);
+
             application.document.layers.addListener(new ListChangeListener() {
 
                 public void onChanged(ListChangeListener.Change change) {
@@ -54,9 +60,10 @@ public class PaintView extends Application {
                     canvasBox.getChildren().clear();
                     for (int i = 0; i < application.document.layers.size(); i++) {
 
-                        BorderPane pane = createCanvasPane(i);
-                     //Todo: add  onMouseClick to change currentLayout
-                        canvasBox.getChildren().add(pane);
+                        HBox pane = createCanvasManagmentPane(i);
+
+
+                        canvasBox.getChildren().add(0, pane);
 
                     }
 
@@ -64,48 +71,85 @@ public class PaintView extends Application {
             });
 
 
-            application.document.addLayer(new Layer("1"));
-            application.document.addLayer(new Layer("2"));
-            application.document.addLayer(new Layer("3"));
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private BorderPane createCanvasPane(int i) {
+    private void initializeButtons() {
+        Button newLayerButton = (Button) root.lookup("#newLayerButton");
 
-        BorderPane pane = new BorderPane();
-        TextField nameField = new TextField(application.document.layers.get(i).name);
-nameField.setMaxSize(40,20);
-        nameField.setStyle("-fx-font: 9 arial; ");
-       // Label label = new Label(application.document.layers.get(i).name);
-        pane.setLeft(nameField);
+        newLayerButton.setOnMouseClicked(event -> application.document.addLayer(new Layer("New Layer")));
 
-        BorderPane buttonPane = createButtonPane(i);
-        pane.setRight(buttonPane);
+        Button DrawCircle = (Button) root.lookup("#drawCircleButton");
+        DrawCircle.setOnMouseClicked(event ->
+                application.changeState(new DrawingCircleState()));
 
+    }
+
+    private void initializeRoot(Stage primaryStage) throws IOException {
+        root = FXMLLoader.load(getClass()
+                .getResource("/main_view.fxml"));
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+
+    public void removeObject(Object obj) {
+        Pane canvasPane = (AnchorPane) root.lookup("#canvasPane");
+        canvasPane.getChildren().remove(obj);
+
+    }
+
+
+    private HBox createCanvasManagmentPane(int position) {
+
+        HBox pane = new HBox();
+        pane.getChildren().add(createNamePane(position));
+        pane.getChildren().add(createMoveCanvasPane(position));
+        pane.getChildren().add(createDeleteButton(position));
         return pane;
     }
 
-    private BorderPane createButtonPane(int i) {
+    private Node createNamePane(int position) {
 
+        BorderPane namePane = new BorderPane();
 
-        BorderPane ButtonPane = new BorderPane();
+        namePane.setTop(createCanvasNameField(position));
+        namePane.setBottom(createSelectButton(position));
 
-        BorderPane moveCanvasPane = createMoveCanvasPane(i);
-        ButtonPane.setLeft(moveCanvasPane);
-
-        Button deleteButton = getButton("DELETE");
-        deleteButton.setStyle("-fx-font: 8 arial; ");
-        deleteButton.setMaxSize(50,50);
-        ButtonPane.setRight(deleteButton);
-
-        deleteButton.setOnMouseClicked(event -> application.document.delete(i));
-
-        return ButtonPane;
+        return namePane;
     }
+
+    private TextField createCanvasNameField(int position) {
+
+        Layer newLayer = application.document.layers.get(position);
+        TextField nameField = new TextField(newLayer.name);
+
+        nameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("nameField changed from " + oldValue + " to " + newValue);
+            newLayer.changeName(newValue);
+        });
+        nameField.setMaxSize(40, 20);
+        nameField.setStyle("-fx-font: 9 arial; ");
+        return nameField;
+    }
+
+    private Button createSelectButton(int position) {
+        Button selectButton = new Button("select");
+        selectButton.setOnMouseClicked(event -> application.document.setCurrentLayer(position));
+        return selectButton;
+    }
+
+
+    private Button createDeleteButton(int position) {
+        Button deleteButton = getButton("DELETE");
+        deleteButton.setOnMouseClicked(event -> application.document.delete(position));
+        deleteButton.setStyle("-fx-font: 8 arial; ");
+        deleteButton.setMaxSize(50, 50);
+        return deleteButton;
+    }
+
 
     private BorderPane createMoveCanvasPane(int i) {
         BorderPane moveCanvasPane = new BorderPane();
@@ -120,12 +164,14 @@ nameField.setMaxSize(40,20);
         return moveCanvasPane;
     }
 
+
     private Button getButton(String s) {
         Button button = new Button(s);
         button.setStyle("-fx-font: 10 arial; ");
         button.setMaxSize(50, 25);
         return button;
     }
+
 
     private void drawShapes(GraphicsContext gc) {
         gc.setFill(Color.GREEN);
@@ -150,24 +196,36 @@ nameField.setMaxSize(40,20);
                 new double[]{210, 210, 240, 240}, 4);
     }
 
+
     public Canvas createNewCanvas() {
 
 System.out.println("Create new Canvas");
         AnchorPane pane = (AnchorPane) root.lookup("#canvasPane");
-        Canvas canvas = new Canvas();
-        canvas.setHeight(pane.getHeight());
-        canvas.setWidth(pane.getWidth());
-GraphicsContext gc = canvas.getGraphicsContext2D();
+        Canvas canvas = getResizableCanvas(pane);
+
+        initializeCanvasEventHandler(canvas);
+        pane.getChildren().add(canvas);
+
+        return canvas;
+    }
+
+    private void initializeCanvasEventHandler(Canvas canvas) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        gc.fillOval(e.getX(),e.getY(),20,20);
+                        application.currentState.handleMouseButtonPressed(e.getX(), e.getY(), gc);
                     }
                 });
-        pane.getChildren().add(canvas);
+    }
 
-return canvas;
+    private Canvas getResizableCanvas(AnchorPane pane) {
+        Canvas canvas = new Canvas();
+
+        canvas.heightProperty().bind(pane.widthProperty());
+        canvas.widthProperty().bind(pane.widthProperty());
+        return canvas;
     }
 }
 

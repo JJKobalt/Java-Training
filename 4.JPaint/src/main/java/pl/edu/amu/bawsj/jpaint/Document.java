@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Document {
     public ObservableList<Layer> layers;
-    Canvas currentLayer;
+    Layer currentLayer;
     PaintView paintView;
 
 
@@ -24,17 +24,72 @@ public class Document {
     }
 
     public void moveUp(int position){
-//TODO: imp move UP
+        if (notTheHighest(position)) Collections.swap(layers, position, position + 1);
+        System.out.println("Layer " + position + " moved Up");
     }
+
+    private boolean notTheLowest(int position) {
+        return position != 0;
+    }
+
+
+
+
     public void moveDown(int position){
-//TODO: imp move DOWN
+        if (notTheLowest(position)) Collections.swap(layers, position, position - 1);
+        System.out.println("Layer " + position + " moved down");
     }
+
+    private boolean notTheHighest(int position) {
+        return position != layers.size() - 1;
+    }
+
+
+
+
     public void delete(int position){
-//TODO: imp delete
+        if(layers.size()==1) addLayer(new Layer("New Layer"));
+
+        Layer deletingLayer = layers.get(position);
+        if(deletingLayer == currentLayer) {
+           changeCurrentLayer(position);
+        }
+        paintView.removeObject(layers.get(position).canvas);
+
+
+        layers.remove(position);
+        //  if(layers.isEmpty()) addLayer(new Layer("New Layer"));
+        System.out.println("Layer " + position + " deleted");
+    }
+
+    private void changeCurrentLayer(int position) {
+
+        if(position!=0) setCurrentLayer((position-1));
+        else setCurrentLayer((position+1));
     }
 
     void addLayer(Layer layer) {
         layer.canvas = paintView.createNewCanvas();
+        System.out.println(" Added layer" + layers.size());
         layers.add(layer);
     }
+
+
+
+    public void setCurrentLayer(int position) {
+
+        currentLayer = layers.get(position);
+
+        for (int i = 0; i < layers.size(); i++) {
+
+            boolean setTransparent = (i != position);
+
+            layers.get(i).canvas.setMouseTransparent(setTransparent);
+
+
+        }
+    }
+
+
+
 }

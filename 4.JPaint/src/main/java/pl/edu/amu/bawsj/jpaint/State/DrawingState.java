@@ -1,5 +1,7 @@
 package pl.edu.amu.bawsj.jpaint.State;
 
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 
 /**
@@ -7,7 +9,10 @@ import java.awt.*;
  */
 public abstract class DrawingState implements AppState{
 
-    Canvas currentCanvas;
+   GraphicsContext gc;
 
 
+    public DrawingState() {
+
+    }
 }
