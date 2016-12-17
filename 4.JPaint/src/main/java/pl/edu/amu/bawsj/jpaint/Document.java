@@ -4,7 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-import javafx.scene.canvas.Canvas;
+import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerDownCommand;
+import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerUpCommand;
+
 import java.util.*;
 
 /**
@@ -16,38 +18,56 @@ public class Document {
     Layer currentLayer;
     PaintView paintView;
 
-CommandStack commandStack;
+
     PaintApplication application;
 
-    public Document(PaintView paintView) {
 
-        System.out.println("Document: Document(PaintView paintView)");
+    public Document(PaintApplication application) {
+
+        this.application = application;
+        paintView = application.paintView;
+
         layers = FXCollections.observableList(new ArrayList<Layer>());
         this.paintView = paintView;
+
+
     }
+
 
     public void moveUp(int position){
-        if (notTheHighest(position)) Collections.swap(layers, position, position + 1);
-        System.out.println("Layer " + position + " moved Up");
+        if (notTheHighest(position)) {
+
+            swap(position, position + 1);
+            application.addToCommandStack(new MoveLayerUpCommand(position, application));
+        }
+
     }
 
+
+    private boolean notTheHighest(int position) {
+
+        return position != layers.size() - 1;
+    }
+
+    public void moveDown(int position){
+        if (notTheLowest(position)) {
+            swap(position, position - 1);
+            application.addToCommandStack(new MoveLayerDownCommand(position, application));
+        }
+
+    }
+
+
     private boolean notTheLowest(int position) {
+
         return position != 0;
     }
 
 
+    public void swap(int positionOne, int positionTwo) {
+        Collections.swap(layers, positionOne, positionTwo);
 
-
-    public void moveDown(int position){
-        if (notTheLowest(position)) Collections.swap(layers, position, position - 1);
-        System.out.println("Layer " + position + " moved down");
     }
-
-    private boolean notTheHighest(int position) {
-        return position != layers.size() - 1;
-    }
-
-
 
 
     public void delete(int position){
@@ -61,20 +81,45 @@ CommandStack commandStack;
 
 
         layers.remove(position);
-        System.out.println("Layer " + position + " deleted");
+
     }
+
 
     private void changeCurrentLayer(int position) {
-        if(layers.size()==1) addLayer(new Layer("New Layer"));
 
-        if(position!=0) setCurrentLayer((position-1));
-        else setCurrentLayer((position+1));
+
+        if (layers.size() == 1) {
+
+            currentLayer = null;
+            return;
+        }
+        if (position != 0) {
+            setCurrentLayer((position - 1));
+        } else {
+            setCurrentLayer((position + 1));
+        }
     }
 
-    void addLayer(Layer layer) {
+
+    public void addLayer(Layer layer) {
+
         layer.canvas = paintView.createNewCanvas();
-        System.out.println(" Added layer" + layers.size());
+
+        deselectLayer(layer);
         layers.add(layer);
+
+        if (layers.size() == 1) setCurrentLayer(0);
+
+    }
+    public void addLayerAt (Layer layer ,int  position) {
+
+        layer.canvas = paintView.createNewCanvas();
+
+        deselectLayer(layer);
+        layers.add(position,layer);
+
+        if (layers.size() == 1) setCurrentLayer(0);
+
     }
 
 
@@ -85,14 +130,40 @@ CommandStack commandStack;
 
         for (int i = 0; i < layers.size(); i++) {
 
-            boolean setTransparent = (i != position);
 
-            layers.get(i).canvas.setMouseTransparent(setTransparent);
+            if (layers.get(i) == currentLayer) {
+                select(position);
 
+            } else {
+                deselectByPosition(i);
+
+            }
 
         }
     }
 
 
+    private void select(int positions) {
+        layers.get(positions).canvas.setMouseTransparent(false);
+        layers.get(positions).changeColor(Colors.GREY_DARK);
 
+    }
+
+    private void deselectByPosition(int positions) {
+        deselectLayer(layers.get(positions));
+
+    }
+
+    private void deselectLayer(Layer layer) {
+        layer.canvas.setMouseTransparent(true);
+        layer.changeColor(Colors.GREY_LIGHT);
+    }
+
+
+    int getCurrentLayerIndex() {
+        if (layers.contains(currentLayer)) {
+            return layers.indexOf(currentLayer);
+        }
+        return -1;
+    }
 }

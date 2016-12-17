@@ -1,6 +1,10 @@
 package pl.edu.amu.bawsj.jpaint;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +34,9 @@ public class PaintView extends Application {
     private SplitPane root;
     PaintApplication application;
     VBox canvasBox;
+    ColorPicker firstColorPicker;
+    ColorPicker secondColorPicker;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -42,14 +49,6 @@ public class PaintView extends Application {
 
 
             initializeButtons();
-
-
-
-
-
-
-
-
 
             application = PaintApplication.getInstance(this);
 
@@ -79,11 +78,25 @@ public class PaintView extends Application {
     private void initializeButtons() {
         Button newLayerButton = (Button) root.lookup("#newLayerButton");
 
-        newLayerButton.setOnMouseClicked(event -> application.document.addLayer(new Layer("New Layer")));
+        newLayerButton.setOnMouseClicked(event -> application.addNewLayer());
 
         Button DrawCircle = (Button) root.lookup("#drawCircleButton");
         DrawCircle.setOnMouseClicked(event ->
                 application.changeState(new DrawingCircleState()));
+
+        Button showStackButton = (Button) root.lookup("#showStackButton");
+        showStackButton.setOnMouseClicked(event ->
+                application.printStackInConsole());
+
+
+        Button undoButton = (Button) root.lookup("#undoButton");
+        undoButton.setOnMouseClicked(event ->
+                application.undoCommand());
+
+        Button redoButton = (Button) root.lookup("#redoButton");
+        redoButton.setOnMouseClicked(event ->
+                application.redoCommand());
+
 
     }
 
@@ -123,11 +136,11 @@ public class PaintView extends Application {
 
     private TextField createCanvasNameField(int position) {
 
-        Layer newLayer = application.document.layers.get(position);
+        Layer newLayer = application.getLayerAt(position);
         TextField nameField = new TextField(newLayer.name);
 
         nameField.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("nameField changed from " + oldValue + " to " + newValue);
+
             newLayer.changeName(newValue);
         });
         nameField.setMaxSize(40, 20);
@@ -137,14 +150,40 @@ public class PaintView extends Application {
 
     private Button createSelectButton(int position) {
         Button selectButton = new Button("select");
-        selectButton.setOnMouseClicked(event -> application.document.setCurrentLayer(position));
+
+        addChangeColorOnSelect(position, selectButton);
+
+        selectButton.setOnMouseClicked(event ->
+                {
+                    application.setCurrentLayer(position);
+
+                }
+        );
         return selectButton;
+    }
+
+    private void addChangeColorOnSelect(int position, Button selectButton) {
+        StringProperty color = new SimpleStringProperty();
+        selectButton.setStyle("-fx-base: " + application.document.layers.get(position).color.getValue() + " ;");
+        application.document.layers.get(position).color.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+                selectButton.setStyle("-fx-base: " + newValue + " ;");
+                System.out.println("View : change at position " + position + " new color is " + newValue);
+            }
+        });
+
+
+        //
+        // System.out.println(application.document.layers.get(position).color.getValue());
+
     }
 
 
     private Button createDeleteButton(int position) {
         Button deleteButton = getButton("DELETE");
-        deleteButton.setOnMouseClicked(event -> application.document.delete(position));
+        deleteButton.setOnMouseClicked(event -> application.deleteLayer(position));
         deleteButton.setStyle("-fx-font: 8 arial; ");
         deleteButton.setMaxSize(50, 50);
         return deleteButton;
@@ -156,11 +195,11 @@ public class PaintView extends Application {
 
         Button upButton = getButton("UP");
         moveCanvasPane.setTop(upButton);
-        upButton.setOnMouseClicked(event -> application.document.moveUp(i));
+        upButton.setOnMouseClicked(event -> application.moveLayerUp(i));
 
         Button downButton = getButton("Down");
         moveCanvasPane.setBottom(downButton);
-        downButton.setOnMouseClicked(event -> application.document.moveDown(i));
+        downButton.setOnMouseClicked(event -> application.moveLayerDown(i));
         return moveCanvasPane;
     }
 
@@ -199,7 +238,7 @@ public class PaintView extends Application {
 
     public Canvas createNewCanvas() {
 
-System.out.println("Create new Canvas");
+
         AnchorPane pane = (AnchorPane) root.lookup("#canvasPane");
         Canvas canvas = getResizableCanvas(pane);
 
@@ -215,7 +254,8 @@ System.out.println("Create new Canvas");
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
-                        application.currentState.handleMouseButtonPressed(e.getX(), e.getY(), gc);
+
+                        application.MousePressed(e, gc);
                     }
                 });
     }

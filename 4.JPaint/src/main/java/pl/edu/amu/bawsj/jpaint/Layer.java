@@ -1,10 +1,8 @@
 package pl.edu.amu.bawsj.jpaint;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.canvas.*;
-import javafx.scene.shape.Shape;
-
-import java.util.List;
+import javafx.scene.paint.Color;
 
 
 /**
@@ -12,15 +10,25 @@ import java.util.List;
  */
 public class Layer {
     javafx.scene.canvas.Canvas canvas;
-    String name;
-
+   public String name;
+StringProperty color;
 
     public Layer(String name) {
 
         this.name=name;
+        color = new SimpleStringProperty();
+
+
     }
 
     public void changeName(String newValue) {
         name=newValue;
     }
+
+
+    public void changeColor(Colors newColor){
+
+        color.setValue(newColor.toString());
+    }
+
 }
