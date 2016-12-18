@@ -22,7 +22,7 @@ public class DeleteLayerCommand  implements Command{
     public void undo() {
 
         application.document.addLayerAt(deletedLayer,layerPosition);
-
+application.document.redrawAt(layerPosition);
     }
 
     @Override

@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 
 import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerDownCommand;
 import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerUpCommand;
+import pl.edu.amu.bawsj.jpaint.Drawables.Drawable;
+import pl.edu.amu.bawsj.jpaint.Drawables.Ellipse;
 
 import java.util.*;
 
@@ -21,6 +23,9 @@ public class Document {
 
     PaintApplication application;
 
+    public Layer getCurrentLayer() {
+        return currentLayer;
+    }
 
     public Document(PaintApplication application) {
 
@@ -165,5 +170,20 @@ public class Document {
             return layers.indexOf(currentLayer);
         }
         return -1;
+    }
+
+    public void addDrawable(Drawable drawable) {
+    currentLayer.addDrawable(drawable);
+
+    }
+
+    public void redrawCurrent() {
+
+    currentLayer.redraw();
+    }
+
+    public void redrawAt(int position) {
+
+        layers.get(position).redraw();
     }
 }

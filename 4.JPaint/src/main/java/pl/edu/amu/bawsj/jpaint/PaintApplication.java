@@ -2,6 +2,7 @@ package pl.edu.amu.bawsj.jpaint;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import pl.edu.amu.bawsj.jpaint.Commands.*;
 import pl.edu.amu.bawsj.jpaint.State.AppState;
 import pl.edu.amu.bawsj.jpaint.State.DrawingCircleState;
@@ -16,7 +17,7 @@ public class PaintApplication {
     public Document document;
     public AppState state;
     public PaintView paintView;
-    AppState currentState;
+
     CommandStack commandStack;
 
     private static PaintApplication instance = null;
@@ -39,7 +40,8 @@ public class PaintApplication {
 
 
     public void changeState(AppState newState) {
-        currentState = newState;
+
+        state = newState;
     }
 
     public void addNewLayer() {
@@ -108,8 +110,26 @@ public class PaintApplication {
     }
 
 
+    public void handleMouseButtonPressed(double x, double y, GraphicsContext gc) {
+        state.handleMouseButtonPressed(x,y,gc);
+    }
 
-    public void MousePressed(MouseEvent e, GraphicsContext gc) {
-        state.handleMouseButtonPressed(e.getX(),e.getY(),gc);
+
+    public Color getFirstColor()
+    {
+        return paintView.getFirstColor();
+    }
+
+    public Color getSecondColor()
+    {
+        return paintView.getSecondColor();
+    }
+
+    public void handleMouseButtonRelesed(double x, double y, GraphicsContext gc) {
+        state.handleMouseButtonRelesed(x,y,gc);
+    }
+
+    public void handleMouseButtonDragged(double x, double y, GraphicsContext gc) {
+        state.handleMouseButtonDragged(x,y,gc);
     }
 }

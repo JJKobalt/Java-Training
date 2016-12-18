@@ -36,19 +36,17 @@ public class PaintView extends Application {
     VBox canvasBox;
     ColorPicker firstColorPicker;
     ColorPicker secondColorPicker;
-
-
     @Override
     public void start(Stage primaryStage) {
 
 
         try {
             initializeRoot(primaryStage);
-
+            initializeButtons();
+            initializeColorPickers();
             canvasBox = (VBox) root.lookup("#canvasBox");
 
 
-            initializeButtons();
 
             application = PaintApplication.getInstance(this);
 
@@ -75,6 +73,13 @@ public class PaintView extends Application {
         }
     }
 
+    private void initializeColorPickers() {
+        firstColorPicker = (ColorPicker) root.lookup("#firstColorPicker");
+        secondColorPicker = (ColorPicker) root.lookup("#secondColorPicker");
+
+
+    }
+
     private void initializeButtons() {
         Button newLayerButton = (Button) root.lookup("#newLayerButton");
 
@@ -82,11 +87,16 @@ public class PaintView extends Application {
 
         Button DrawCircle = (Button) root.lookup("#drawCircleButton");
         DrawCircle.setOnMouseClicked(event ->
-                application.changeState(new DrawingCircleState()));
+        {
+
+            application.changeState(new DrawingCircleState(application));
+
+        });
 
         Button showStackButton = (Button) root.lookup("#showStackButton");
         showStackButton.setOnMouseClicked(event ->
                 application.printStackInConsole());
+
 
 
         Button undoButton = (Button) root.lookup("#undoButton");
@@ -170,13 +180,10 @@ public class PaintView extends Application {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
                 selectButton.setStyle("-fx-base: " + newValue + " ;");
-                System.out.println("View : change at position " + position + " new color is " + newValue);
+
             }
         });
 
-
-        //
-        // System.out.println(application.document.layers.get(position).color.getValue());
 
     }
 
@@ -213,6 +220,8 @@ public class PaintView extends Application {
 
 
     private void drawShapes(GraphicsContext gc) {
+
+
         gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(5);
@@ -233,6 +242,7 @@ public class PaintView extends Application {
                 new double[]{210, 210, 240, 240}, 4);
         gc.strokePolyline(new double[]{110, 140, 110, 140},
                 new double[]{210, 210, 240, 240}, 4);
+
     }
 
 
@@ -254,8 +264,26 @@ public class PaintView extends Application {
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent e) {
+                        application.handleMouseButtonPressed(e.getX(), e.getY(), gc);
 
-                        application.MousePressed(e, gc);
+                    }
+                });
+
+        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        application.handleMouseButtonRelesed(e.getX(), e.getY(), gc);
+
+                    }
+                });
+
+        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        application.handleMouseButtonDragged(e.getX(), e.getY(), gc);
+
                     }
                 });
     }
@@ -266,6 +294,14 @@ public class PaintView extends Application {
         canvas.heightProperty().bind(pane.widthProperty());
         canvas.widthProperty().bind(pane.widthProperty());
         return canvas;
+    }
+
+    public Color getFirstColor() {
+        return firstColorPicker.getValue();
+    }
+
+    public Color getSecondColor() {
+        return secondColorPicker.getValue();
     }
 }
 
