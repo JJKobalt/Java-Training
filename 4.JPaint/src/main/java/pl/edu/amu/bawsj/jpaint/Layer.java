@@ -4,8 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import pl.edu.amu.bawsj.jpaint.Drawables.Drawable;
-import pl.edu.amu.bawsj.jpaint.Drawables.Ellipse;
+import pl.edu.amu.bawsj.jpaint.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class Layer {
     public javafx.scene.canvas.Canvas canvas;
     public String name;
     StringProperty color;
-    List<Drawable> drawables;
+    List<Shape> drawables;
 
 
 
@@ -40,27 +39,31 @@ public class Layer {
         color.setValue(newColor.toString());
     }
 
-    public void addDrawable(Drawable drawable) {
+    public void addDrawable(Shape drawable) {
     drawables.add(drawable);
     }
 
     public void redraw() {
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
 
         gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(5);
 
 
-
-for(Drawable drawable:drawables)
-{
-    drawable.draw(gc);
-}
+        for (Shape drawable : drawables) {
+            drawable.draw(gc);
+        }
 
 
 
 
+    }
+
+    public void removeLast() {
+        drawables.remove(drawables.size() - 1);
+        redraw();
     }
 }

@@ -1,11 +1,10 @@
 package pl.edu.amu.bawsj.jpaint;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import pl.edu.amu.bawsj.jpaint.Commands.*;
 import pl.edu.amu.bawsj.jpaint.State.AppState;
-import pl.edu.amu.bawsj.jpaint.State.DrawingCircleState;
+import pl.edu.amu.bawsj.jpaint.DrawingStyle.DrawingStyle;
 
 import java.util.Iterator;
 
@@ -21,6 +20,7 @@ public class PaintApplication {
     CommandStack commandStack;
 
     private static PaintApplication instance = null;
+
 
 
     private PaintApplication(PaintView paintView) {
@@ -83,21 +83,7 @@ public class PaintApplication {
     }
 
     public void printStackInConsole() {
-
-        commandStack.performedComands.get(0);
-
-        Iterator<Command> commandIterator = commandStack.performedComands.iterator();
-        while (commandIterator.hasNext()) {
-            Command command = commandIterator.next();
-            if(command.getClass()== MoveLayerUpCommand.class)
-            {
-
-            }
-            if(command.getClass()== MoveLayerDownCommand.class)
-            {
-
-            }
-        }
+commandStack.printCommandStackInConsole();
     }
 
     public void undoCommand() {
@@ -131,5 +117,9 @@ public class PaintApplication {
 
     public void handleMouseButtonDragged(double x, double y, GraphicsContext gc) {
         state.handleMouseButtonDragged(x,y,gc);
+    }
+
+    public DrawingStyle getStyleType() {
+        return paintView.getFillType();
     }
 }

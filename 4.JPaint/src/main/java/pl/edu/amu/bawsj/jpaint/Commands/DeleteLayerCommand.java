@@ -29,4 +29,10 @@ application.document.redrawAt(layerPosition);
     public void redo() {
         application.document.delete(layerPosition);
     }
+
+
+    @Override
+    public String toString() {
+        return "deleted Layer";
+    }
 }

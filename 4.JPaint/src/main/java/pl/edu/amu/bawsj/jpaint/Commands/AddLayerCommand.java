@@ -23,6 +23,12 @@ application.document.delete(application.document.layers.size()-1);
 
     @Override
     public void redo() {
-application.document.addLayer(new Layer("New Layer"));
+        application.document.addLayer(new Layer("New Layer"));
+    }
+
+
+    @Override
+    public String toString() {
+        return "Added Layer";
     }
 }

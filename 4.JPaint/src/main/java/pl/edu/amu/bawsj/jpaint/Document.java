@@ -6,8 +6,7 @@ import javafx.collections.ObservableList;
 
 import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerDownCommand;
 import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerUpCommand;
-import pl.edu.amu.bawsj.jpaint.Drawables.Drawable;
-import pl.edu.amu.bawsj.jpaint.Drawables.Ellipse;
+import pl.edu.amu.bawsj.jpaint.shape.Shape;
 
 import java.util.*;
 
@@ -172,7 +171,7 @@ public class Document {
         return -1;
     }
 
-    public void addDrawable(Drawable drawable) {
+    public void addDrawable(Shape drawable) {
     currentLayer.addDrawable(drawable);
 
     }
@@ -185,5 +184,21 @@ public class Document {
     public void redrawAt(int position) {
 
         layers.get(position).redraw();
+    }
+
+    public void redrawAll() {
+
+       for(Layer layer: layers)
+       {
+           layer.canvas.toFront();
+
+       };
+        for(Layer layer: layers)
+        {
+
+            layer.redraw();
+        };
+
+
     }
 }

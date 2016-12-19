@@ -27,4 +27,10 @@ public class MoveLayerUpCommand implements Command {
     public void redo() {
         application.document.swap(layerPosition,layerPosition-1);
     }
+
+
+    @Override
+    public String toString() {
+        return "Layer moved up";
+    }
 }

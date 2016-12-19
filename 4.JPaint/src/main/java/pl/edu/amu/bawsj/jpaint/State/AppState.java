@@ -11,5 +11,5 @@ public interface AppState {
     public void handleMouseButtonPressed(Double x, Double y, GraphicsContext gc);
     public void handleMouseButtonRelesed(Double x, Double y, GraphicsContext gc);
     public void handleMouseButtonDragged(Double x, Double y, GraphicsContext gc);
-    void setApplication(PaintApplication application);
+
 }

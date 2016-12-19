@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +21,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
 import javafx.scene.canvas.Canvas;
+import pl.edu.amu.bawsj.jpaint.DrawingStyle.LinearGradient;
 import pl.edu.amu.bawsj.jpaint.State.DrawingCircleState;
+import pl.edu.amu.bawsj.jpaint.DrawingStyle.DrawingStyle;
+import pl.edu.amu.bawsj.jpaint.DrawingStyle.PlainColor;
+import pl.edu.amu.bawsj.jpaint.DrawingStyle.WithBorders;
+import pl.edu.amu.bawsj.jpaint.State.DrawingRectangleState;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JanJa on 02.12.2016.
@@ -36,6 +44,10 @@ public class PaintView extends Application {
     VBox canvasBox;
     ColorPicker firstColorPicker;
     ColorPicker secondColorPicker;
+
+    ChoiceBox fillStyleChoiceBox;
+    List<DrawingStyle> drawingStyles;
+
     @Override
     public void start(Stage primaryStage) {
 
@@ -44,6 +56,7 @@ public class PaintView extends Application {
             initializeRoot(primaryStage);
             initializeButtons();
             initializeColorPickers();
+            initializeChoiceBox();
             canvasBox = (VBox) root.lookup("#canvasBox");
 
 
@@ -73,6 +86,28 @@ public class PaintView extends Application {
         }
     }
 
+    private void initializeChoiceBox() {
+        initializeStylesList();
+        fillStyleChoiceBox = (ChoiceBox) root.lookup("#fillStyleChoiceBox");
+        fillStyleChoiceBox.setItems(FXCollections.observableArrayList(drawingStyles));
+        fillStyleChoiceBox.getSelectionModel().selectFirst();
+
+    }
+
+    private void initializeStylesList() {
+        drawingStyles = new ArrayList<>();
+        drawingStyles.add(new PlainColor());
+        drawingStyles.add(new WithBorders());
+        drawingStyles.add(new LinearGradient());
+    }
+
+
+    public DrawingStyle getFillType() {
+        DrawingStyle style = (DrawingStyle) fillStyleChoiceBox.getValue();
+
+        return style;
+    }
+
     private void initializeColorPickers() {
         firstColorPicker = (ColorPicker) root.lookup("#firstColorPicker");
         secondColorPicker = (ColorPicker) root.lookup("#secondColorPicker");
@@ -86,16 +121,17 @@ public class PaintView extends Application {
         newLayerButton.setOnMouseClicked(event -> application.addNewLayer());
 
         Button DrawCircle = (Button) root.lookup("#drawCircleButton");
-        DrawCircle.setOnMouseClicked(event ->
-        {
+        DrawCircle.setOnMouseClicked(event -> application.changeState(new DrawingCircleState(application)));
 
-            application.changeState(new DrawingCircleState(application));
-
-        });
+        Button DrawRectangle = (Button) root.lookup("#drawRectangleButton");
+        DrawRectangle.setOnMouseClicked(event -> application.changeState(new DrawingRectangleState(application)));
 
         Button showStackButton = (Button) root.lookup("#showStackButton");
-        showStackButton.setOnMouseClicked(event ->
-                application.printStackInConsole());
+        showStackButton.setOnMouseClicked(event ->{
+System.out.println("LOOK THIS");
+                    application.printStackInConsole();
+                }
+               );
 
 
 
@@ -202,11 +238,17 @@ public class PaintView extends Application {
 
         Button upButton = getButton("UP");
         moveCanvasPane.setTop(upButton);
-        upButton.setOnMouseClicked(event -> application.moveLayerUp(i));
+        upButton.setOnMouseClicked(event -> {
+            application.moveLayerUp(i);
+            application.document.redrawAll();
+        });
 
         Button downButton = getButton("Down");
         moveCanvasPane.setBottom(downButton);
-        downButton.setOnMouseClicked(event -> application.moveLayerDown(i));
+        downButton.setOnMouseClicked(event -> {
+            application.moveLayerDown(i);
+            application.document.redrawAll();
+        });
         return moveCanvasPane;
     }
 
@@ -261,31 +303,13 @@ public class PaintView extends Application {
     private void initializeCanvasEventHandler(Canvas canvas) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        application.handleMouseButtonPressed(e.getX(), e.getY(), gc);
-
-                    }
-                });
+                e -> application.handleMouseButtonPressed(e.getX(), e.getY(), gc));
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        application.handleMouseButtonRelesed(e.getX(), e.getY(), gc);
-
-                    }
-                });
+                e -> application.handleMouseButtonRelesed(e.getX(), e.getY(), gc));
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        application.handleMouseButtonDragged(e.getX(), e.getY(), gc);
-
-                    }
-                });
+                e -> application.handleMouseButtonDragged(e.getX(), e.getY(), gc));
     }
 
     private Canvas getResizableCanvas(AnchorPane pane) {

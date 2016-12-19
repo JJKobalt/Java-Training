@@ -1,10 +1,12 @@
 package pl.edu.amu.bawsj.jpaint;
 
 import pl.edu.amu.bawsj.jpaint.Commands.Command;
+import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerDownCommand;
+import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerUpCommand;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Created by JanJa on 15.12.2016.
@@ -47,5 +49,17 @@ public class CommandStack {
         performedComands.add(command);
         command.redo();
         redoComands.remove(redoComands.size()-1);
+    }
+
+    public void printCommandStackInConsole() {
+
+
+
+
+        Iterator<Command> commandIterator = performedComands.iterator();
+        while (commandIterator.hasNext()) {
+            Command command = commandIterator.next();
+           System.out.println(command.toString());
+        }
     }
 }

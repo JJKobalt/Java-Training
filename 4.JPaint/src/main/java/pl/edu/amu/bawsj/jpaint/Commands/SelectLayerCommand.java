@@ -25,4 +25,9 @@ public class SelectLayerCommand  implements Command {
     public void redo() {
         application.document.setCurrentLayer(nextLayer);
     }
+
+    @Override
+    public String toString() {
+        return  "changed current Layer ";
+    }
 }
