@@ -13,23 +13,25 @@ public class Rectangle extends Shape {
     private Coordinates diagonalCoordinates;
     private double rotate;
 
-    @Override
-    public void draw(GraphicsContext gc) {
 
 
-        gc.save();
-        gc = drawingStyle.setFill(gc, firstColor, secondColor);
-        gc.rotate(rotate);
-        drawingStyle.drawRectangle(gc, this);
-        gc.restore();
 
-
-    }
-    public Rectangle(DrawingStyle drawingStyle) {
+    public Rectangle(DrawingStyle drawingStyle,Coordinates topLeft, Coordinates diagonalCoordinates) {
         rotate = 0;
         this.drawingStyle = drawingStyle;
+        this.topLeft = topLeft;
+        this.diagonalCoordinates = diagonalCoordinates;
     }
 
+
+    public void draw(GraphicsContext gc)
+    {
+        gc.save();
+
+        gc.rotate(rotate);
+        drawingStyle.draw(gc,this,firstColor, secondColor, brushSize);
+        gc.restore();
+    }
     public Coordinates getTopLeft() {
         return topLeft;
     }

@@ -6,40 +6,31 @@ import pl.edu.amu.bawsj.jpaint.Commands.*;
 import pl.edu.amu.bawsj.jpaint.State.AppState;
 import pl.edu.amu.bawsj.jpaint.DrawingStyle.DrawingStyle;
 
-import java.util.Iterator;
-
 /**
  * Created by JanJa on 07.12.2016.
  */
 public class PaintApplication {
 
     public Document document;
-    public AppState state;
-    public PaintView paintView;
-
+    private AppState state;
+    PaintView paintView;
     CommandStack commandStack;
 
-    private static PaintApplication instance = null;
 
 
 
-    private PaintApplication(PaintView paintView) {
+    public PaintApplication(PaintView paintView) {
         this.paintView = paintView;
         document = new Document(this);
         commandStack = new CommandStack();
 
     }
 
-    ;
-
-    public static PaintApplication getInstance(PaintView paintView) {
-        if (instance == null) instance = new PaintApplication(paintView);
-
-        return instance;
-    }
 
 
-    public void changeState(AppState newState) {
+
+
+    void changeState(AppState newState) {
 
         state = newState;
     }
@@ -47,29 +38,30 @@ public class PaintApplication {
     public void addNewLayer() {
 
 
-
         addToCommandStack(new AddLayerCommand(this));
-        document.addLayer(new Layer("New Layer"));
+        document.addLayer("New Layer");
     }
 
     public void setCurrentLayer(int position) {
-        addToCommandStack(new SelectLayerCommand(document.getCurrentLayerIndex(),position,this));
+        addToCommandStack(new SelectLayerCommand(document.getCurrentLayerIndex(), position,this));
         document.setCurrentLayer(position);
 
     }
 
     public void deleteLayer(int position) {
-        addToCommandStack(new DeleteLayerCommand(document.layers.get(position),position, this));
+        addToCommandStack(new DeleteLayerCommand(document.layers.get(position), position,this));
         document.delete(position);
 
     }
 
     public void moveLayerUp(int position) {
         document.moveUp(position);
+
     }
 
     public void moveLayerDown(int position) {
        document.moveDown(position);
+
     }
 
     public Layer getLayerAt(int position) {
@@ -120,6 +112,11 @@ commandStack.printCommandStackInConsole();
     }
 
     public DrawingStyle getStyleType() {
-        return paintView.getFillType();
+
+        return paintView.getStyleType();
+    }
+
+    public int getBrushSize() {
+        return paintView.getBrushSize();
     }
 }

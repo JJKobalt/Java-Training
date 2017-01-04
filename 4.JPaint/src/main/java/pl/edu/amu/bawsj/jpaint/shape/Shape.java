@@ -9,19 +9,26 @@ import pl.edu.amu.bawsj.jpaint.DrawingStyle.DrawingStyle;
  */
 public abstract class Shape {
 
-    protected Color firstColor;
-    protected Color secondColor;
-    public DrawingStyle drawingStyle;
+    Color firstColor;
+    Color secondColor;
+    int brushSize;
+
+    public int getBrushSize() {
+        return brushSize;
+    }
+
+    public void setBrushSize(int brushSize) {
+        this.brushSize = brushSize;
+    }
+
+    DrawingStyle drawingStyle;
+    private double rotate;
 
 
 
 
 
     public abstract void draw(GraphicsContext gc);
-
-
-
-
 
     public Color getSecondColor() {
         return secondColor;

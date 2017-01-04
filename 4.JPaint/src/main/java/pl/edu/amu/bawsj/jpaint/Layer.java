@@ -2,6 +2,7 @@ package pl.edu.amu.bawsj.jpaint;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import pl.edu.amu.bawsj.jpaint.shape.Shape;
@@ -22,11 +23,18 @@ public class Layer {
 
 
     public Layer(String name) {
-
         this.name=name;
         color = new SimpleStringProperty();
         drawables = new ArrayList<>();
 
+
+    }
+
+    public Layer(String layerName, Canvas newCanvas) {
+        this.name=layerName;
+        color = new SimpleStringProperty();
+        drawables = new ArrayList<>();
+        canvas = newCanvas;
     }
 
     public void changeName(String newValue) {

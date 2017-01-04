@@ -8,6 +8,7 @@ import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerDownCommand;
 import pl.edu.amu.bawsj.jpaint.Commands.MoveLayerUpCommand;
 import pl.edu.amu.bawsj.jpaint.shape.Shape;
 
+import java.awt.*;
 import java.util.*;
 
 /**
@@ -26,13 +27,14 @@ public class Document {
         return currentLayer;
     }
 
-    public Document(PaintApplication application) {
+    public Document( PaintApplication application) {
 
         this.application = application;
-        paintView = application.paintView;
+        System.out.println(application);
+        this.paintView = application.paintView;
 
         layers = FXCollections.observableList(new ArrayList<Layer>());
-        this.paintView = paintView;
+
 
 
     }
@@ -42,7 +44,7 @@ public class Document {
         if (notTheHighest(position)) {
 
             swap(position, position + 1);
-            application.addToCommandStack(new MoveLayerUpCommand(position, application));
+            application.addToCommandStack(new MoveLayerUpCommand(position,application));
         }
 
     }
@@ -56,7 +58,7 @@ public class Document {
     public void moveDown(int position){
         if (notTheLowest(position)) {
             swap(position, position - 1);
-            application.addToCommandStack(new MoveLayerDownCommand(position, application));
+            application.addToCommandStack(new MoveLayerDownCommand(position,application));
         }
 
     }
@@ -70,7 +72,7 @@ public class Document {
 
     public void swap(int positionOne, int positionTwo) {
         Collections.swap(layers, positionOne, positionTwo);
-
+        redrawAll();
     }
 
 
@@ -104,10 +106,10 @@ public class Document {
         }
     }
 
+    public void addLayer(String layerName) {
 
-    public void addLayer(Layer layer) {
 
-        layer.canvas = paintView.createNewCanvas();
+        Layer layer = new Layer(layerName , paintView.createNewCanvas());
 
         deselectLayer(layer);
         layers.add(layer);
@@ -115,6 +117,8 @@ public class Document {
         if (layers.size() == 1) setCurrentLayer(0);
 
     }
+
+
     public void addLayerAt (Layer layer ,int  position) {
 
         layer.canvas = paintView.createNewCanvas();

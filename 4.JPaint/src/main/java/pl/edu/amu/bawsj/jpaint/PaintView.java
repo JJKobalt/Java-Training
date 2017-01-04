@@ -26,7 +26,9 @@ import pl.edu.amu.bawsj.jpaint.State.DrawingCircleState;
 import pl.edu.amu.bawsj.jpaint.DrawingStyle.DrawingStyle;
 import pl.edu.amu.bawsj.jpaint.DrawingStyle.PlainColor;
 import pl.edu.amu.bawsj.jpaint.DrawingStyle.WithBorders;
+import pl.edu.amu.bawsj.jpaint.State.DrawingLineState;
 import pl.edu.amu.bawsj.jpaint.State.DrawingRectangleState;
+import pl.edu.amu.bawsj.jpaint.State.DrawingWithBrushState;
 
 
 import java.io.IOException;
@@ -44,6 +46,7 @@ public class PaintView extends Application {
     VBox canvasBox;
     ColorPicker firstColorPicker;
     ColorPicker secondColorPicker;
+    TextField brushSizeTextField;
 
     ChoiceBox fillStyleChoiceBox;
     List<DrawingStyle> drawingStyles;
@@ -57,11 +60,11 @@ public class PaintView extends Application {
             initializeButtons();
             initializeColorPickers();
             initializeChoiceBox();
+            initializeBrushSizeTextField();
             canvasBox = (VBox) root.lookup("#canvasBox");
 
 
-
-            application = PaintApplication.getInstance(this);
+            application = new PaintApplication(this);
 
             application.document.layers.addListener(new ListChangeListener() {
 
@@ -102,7 +105,7 @@ public class PaintView extends Application {
     }
 
 
-    public DrawingStyle getFillType() {
+    public DrawingStyle getStyleType() {
         DrawingStyle style = (DrawingStyle) fillStyleChoiceBox.getValue();
 
         return style;
@@ -115,6 +118,16 @@ public class PaintView extends Application {
 
     }
 
+    private void initializeBrushSizeTextField() {
+        brushSizeTextField = (TextField) root.lookup("#brushSizeTextField");
+        brushSizeTextField.setText("10");
+        brushSizeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                brushSizeTextField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+    }
     private void initializeButtons() {
         Button newLayerButton = (Button) root.lookup("#newLayerButton");
 
@@ -126,9 +139,17 @@ public class PaintView extends Application {
         Button DrawRectangle = (Button) root.lookup("#drawRectangleButton");
         DrawRectangle.setOnMouseClicked(event -> application.changeState(new DrawingRectangleState(application)));
 
+        Button DrawLine = (Button) root.lookup("#drawLineButton");
+        DrawLine.setOnMouseClicked(event -> application.changeState(new DrawingLineState(application)));
+
+       Button DrawCurve = (Button) root.lookup("#drawCurveButton");
+        DrawCurve.setOnMouseClicked(event -> application.changeState(new DrawingWithBrushState(application)));
+
+
+
         Button showStackButton = (Button) root.lookup("#showStackButton");
         showStackButton.setOnMouseClicked(event ->{
-System.out.println("LOOK THIS");
+
                     application.printStackInConsole();
                 }
                );
@@ -240,14 +261,14 @@ System.out.println("LOOK THIS");
         moveCanvasPane.setTop(upButton);
         upButton.setOnMouseClicked(event -> {
             application.moveLayerUp(i);
-            application.document.redrawAll();
+
         });
 
         Button downButton = getButton("Down");
         moveCanvasPane.setBottom(downButton);
         downButton.setOnMouseClicked(event -> {
             application.moveLayerDown(i);
-            application.document.redrawAll();
+
         });
         return moveCanvasPane;
     }
@@ -268,6 +289,7 @@ System.out.println("LOOK THIS");
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(5);
         gc.strokeLine(40, 10, 10, 40);
+
         gc.fillOval(10, 60, 30, 30);
         gc.strokeOval(60, 60, 30, 30);
         gc.fillRoundRect(110, 60, 30, 30, 10, 10);
@@ -326,6 +348,10 @@ System.out.println("LOOK THIS");
 
     public Color getSecondColor() {
         return secondColorPicker.getValue();
+    }
+
+    public int getBrushSize() {
+        return Integer.parseInt(brushSizeTextField.getText());
     }
 }
 

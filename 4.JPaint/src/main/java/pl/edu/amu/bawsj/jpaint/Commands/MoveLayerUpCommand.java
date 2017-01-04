@@ -7,8 +7,8 @@ import pl.edu.amu.bawsj.jpaint.PaintApplication;
  */
 public class MoveLayerUpCommand implements Command {
 
-    public int layerPosition;
-       PaintApplication application;
+    private int layerPosition;
+       private PaintApplication application;
 
     public MoveLayerUpCommand(int layerPosition, PaintApplication application) {
         this.layerPosition = layerPosition;
@@ -19,7 +19,7 @@ public class MoveLayerUpCommand implements Command {
 
     @Override
     public void undo() {
-        System.out.println("try undo move up");
+
         application.document.swap(layerPosition,layerPosition+1);
     }
 

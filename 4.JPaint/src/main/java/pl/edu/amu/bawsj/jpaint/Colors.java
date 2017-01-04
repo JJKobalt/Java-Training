@@ -31,8 +31,7 @@ public enum Colors {
     },
     GREY_DARK {
         @Override
-        public String toString() {
-            return "#7a7a7a";
+        public String toString() {return "#7a7a7a";
         }
     }
 }

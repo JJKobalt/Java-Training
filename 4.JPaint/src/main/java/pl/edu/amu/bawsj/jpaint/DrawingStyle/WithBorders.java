@@ -3,12 +3,14 @@ package pl.edu.amu.bawsj.jpaint.DrawingStyle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import pl.edu.amu.bawsj.jpaint.shape.Ellipse;
+import pl.edu.amu.bawsj.jpaint.shape.Line;
 import pl.edu.amu.bawsj.jpaint.shape.Rectangle;
+import pl.edu.amu.bawsj.jpaint.shape.Shape;
 
 /**
  * Created by JanJa on 18.12.2016.
  */
-public class WithBorders implements DrawingStyle {
+public class WithBorders extends DrawingStyle {
 
 
     @Override
@@ -20,7 +22,9 @@ public class WithBorders implements DrawingStyle {
     }
 
     @Override
-    public void drawOval(GraphicsContext gc, Ellipse ellipse) {
+    public void draw(GraphicsContext gc, Ellipse ellipse, Color firstColor, Color secondColor,int brushSize) {
+        gc = setFill(gc, firstColor, secondColor);
+        gc.setLineWidth(brushSize);
         gc.fillOval(ellipse.getCoordinates().x, ellipse.getCoordinates().y, ellipse.getRadius().x, ellipse.getRadius().y);
         gc.strokeOval(ellipse.getCoordinates().x, ellipse.getCoordinates().y, ellipse.getRadius().x, ellipse.getRadius().y);
 
@@ -28,12 +32,27 @@ public class WithBorders implements DrawingStyle {
 
 
     @Override
-    public void drawRectangle(GraphicsContext gc, Rectangle rectangle) {
+    public void draw(GraphicsContext gc, Rectangle rectangle, Color firstColor, Color secondColor,int brushSize) {
+        gc = setFill(gc, firstColor, secondColor);
+        gc.setLineWidth(brushSize);
         gc.fillRect(rectangle.getTopLeft().x,rectangle.getTopLeft().y,rectangle.getWidth(),rectangle.getHeight());
-        gc.strokeOval(rectangle.getTopLeft().x,rectangle.getTopLeft().y,rectangle.getWidth(),rectangle.getHeight());
+        gc.strokeRect(rectangle.getTopLeft().x,rectangle.getTopLeft().y,rectangle.getWidth(),rectangle.getHeight());
     }
 
-@Override
+
+    @Override
+    public void draw(GraphicsContext gc, Shape shape, Color firstColor, Color secondColor,int brushSize) {
+        System.err.println("NO defined shape");
+    }
+
+    @Override
+    public void draw(GraphicsContext gc, Line line, Color firstColor, Color secondColor,int brushSize) {
+        gc = setFill(gc, firstColor, secondColor);
+        gc.setLineWidth(brushSize);
+        gc.strokeLine(line.getStartCoordinates().x, line.getStartCoordinates().y, line.getEndCoordinates().x, line.getEndCoordinates().y);
+    }
+
+    @Override
    public String toString()
    {
        return  "With borders";

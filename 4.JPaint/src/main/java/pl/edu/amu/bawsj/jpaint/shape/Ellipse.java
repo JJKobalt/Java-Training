@@ -14,22 +14,21 @@ public class Ellipse extends Shape {
     private double rotate;
 
 
-    public Ellipse(DrawingStyle drawingStyle) {
+
+
+    public Ellipse(DrawingStyle styleType, Coordinates coordinates, Coordinates radius) {
         rotate = 0;
-        this.drawingStyle = drawingStyle;
+        this.drawingStyle = styleType;
+        this.coordinates = coordinates;
+        this.radius = radius;
     }
 
-
-    @Override
-    public void draw(GraphicsContext gc) {
-
+    public void draw(GraphicsContext gc)
+    {
         gc.save();
-        gc = drawingStyle.setFill(gc, firstColor, secondColor);
         gc.rotate(rotate);
-        drawingStyle.drawOval(gc, this);
+        drawingStyle.draw(gc,this,firstColor, secondColor,brushSize);
         gc.restore();
-
-
     }
 
     public Coordinates getCoordinates() {

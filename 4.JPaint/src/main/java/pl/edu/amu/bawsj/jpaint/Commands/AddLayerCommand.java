@@ -11,9 +11,9 @@ public class AddLayerCommand implements Command {
 
     PaintApplication application;
 
-    public AddLayerCommand( PaintApplication application) {
+    public AddLayerCommand(PaintApplication application ) {
 
-        this.application = application;
+        this.application =application;
     }
 
     @Override
@@ -23,7 +23,7 @@ application.document.delete(application.document.layers.size()-1);
 
     @Override
     public void redo() {
-        application.document.addLayer(new Layer("New Layer"));
+        application.document.addLayer("New Layer");
     }
 
 

@@ -10,7 +10,7 @@ public class SelectLayerCommand  implements Command {
     int nextLayer;
     PaintApplication application;
 
-    public SelectLayerCommand(int previousLayer, int nextLayer, PaintApplication application) {
+    public SelectLayerCommand(int previousLayer, int nextLayer,PaintApplication application) {
         PreviousLayer = previousLayer;
         this.nextLayer = nextLayer;
         this.application = application;

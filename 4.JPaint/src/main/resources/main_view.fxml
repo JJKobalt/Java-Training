@@ -5,23 +5,28 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane centerShape="false" dividerPositions="0.15829145728643215" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane centerShape="false" dividerPositions="0.15829145728643215" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" orientation="VERTICAL" prefHeight="600" prefWidth="1000" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
   <items>
     <AnchorPane maxHeight="90.0" minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="627.0">
          <children>
-            <Button fx:id="drawCircleButton" layoutY="31.0" mnemonicParsing="false" text="Draw Circle" />
-            <ColorPicker fx:id="secondColorPicker" layoutX="507.0" layoutY="31.0" prefHeight="25.0" prefWidth="91.0" />
-            <Button fx:id="showStackButton" layoutY="1.0" mnemonicParsing="false" text="Show Stack in console" />
-            <Button fx:id="undoButton" layoutX="210.0" layoutY="1.0" mnemonicParsing="false" text="undo" />
-            <Button fx:id="redoButton" layoutX="285.0" layoutY="1.0" mnemonicParsing="false" text="redo" />
-            <ColorPicker fx:id="firstColorPicker" layoutX="507.0" layoutY="1.0" prefHeight="25.0" prefWidth="91.0" />
-            <Label layoutX="451.0" layoutY="38.0" text="Color#2" />
-            <Label layoutX="451.0" layoutY="5.0" text="Color#1" />
-            <ChoiceBox fx:id="fillStyleChoiceBox" layoutX="387.0" layoutY="1.0" prefHeight="25.0" prefWidth="56.0" />
-            <Button fx:id="drawRectangleButton" layoutX="76.0" layoutY="31.0" mnemonicParsing="false" text="Draw Rectangle" />
+            <Button fx:id="drawCircleButton" layoutY="56.0" mnemonicParsing="false" text="Draw Circle" />
+            <ColorPicker fx:id="secondColorPicker" layoutX="885.0" layoutY="43.0" prefHeight="25.0" prefWidth="91.0" />
+            <Button fx:id="showStackButton" layoutY="9.0" mnemonicParsing="false" text="Show Stack in console" />
+            <Button fx:id="undoButton" layoutX="134.0" layoutY="9.0" mnemonicParsing="false" text="undo" />
+            <Button fx:id="redoButton" layoutX="178.0" layoutY="9.0" mnemonicParsing="false" text="redo" />
+            <ColorPicker fx:id="firstColorPicker" layoutX="885.0" layoutY="9.0" prefHeight="25.0" prefWidth="91.0" />
+            <Label layoutX="831.0" layoutY="48.0" text="Color#2" />
+            <Label layoutX="831.0" layoutY="13.0" text="Color#1" />
+            <ChoiceBox fx:id="fillStyleChoiceBox" layoutX="704.0" layoutY="13.0" prefHeight="25.0" prefWidth="110.0" />
+            <Button fx:id="drawRectangleButton" layoutX="76.0" layoutY="56.0" mnemonicParsing="false" text="Draw Rectangle" />
+            <Button fx:id="drawLineButton" layoutX="176.0" layoutY="56.0" mnemonicParsing="false" text="Draw Line" />
+            <TextField fx:id="brushSizeTextField" layoutX="770.0" layoutY="44.0" prefHeight="25.0" prefWidth="44.0" />
+            <Label layoutX="704.0" layoutY="48.0" text="Brush Size" />
+            <Button fx:id="drawCurveButton" layoutX="245.0" layoutY="56.0" mnemonicParsing="false" text="Draw Curve" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>

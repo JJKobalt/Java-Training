@@ -7,12 +7,12 @@ import pl.edu.amu.bawsj.jpaint.PaintApplication;
  * Created by JanJa on 15.12.2016.
  */
 public class DeleteLayerCommand  implements Command{
-    Layer deletedLayer;
-    int layerPosition;
-    PaintApplication application;
+    private Layer deletedLayer;
+    private int layerPosition;
+    private PaintApplication application;
 
     public DeleteLayerCommand(Layer deletedLayer, int layerPosition, PaintApplication application) {
-        System.out.println("Delete Layer sie wywoluje dla Layera:" + deletedLayer.name );
+
         this.deletedLayer = deletedLayer;
         this.layerPosition = layerPosition;
         this.application = application;
