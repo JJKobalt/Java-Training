@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane centerShape="false" dividerPositions="0.15829145728643215" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" orientation="VERTICAL" prefHeight="600" prefWidth="1000" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane centerShape="false" dividerPositions="0.15829145728643215" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" orientation="VERTICAL" prefHeight="600" prefWidth="1000" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
   <items>
     <AnchorPane maxHeight="90.0" minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="627.0">
          <children>
@@ -27,6 +27,7 @@
             <TextField fx:id="brushSizeTextField" layoutX="770.0" layoutY="44.0" prefHeight="25.0" prefWidth="44.0" />
             <Label layoutX="704.0" layoutY="48.0" text="Brush Size" />
             <Button fx:id="drawCurveButton" layoutX="245.0" layoutY="56.0" mnemonicParsing="false" text="Draw Curve" />
+            <Button fx:id="tryRecognizeButton" layoutX="473.0" layoutY="53.0" mnemonicParsing="false" text="try to recognize equation" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>

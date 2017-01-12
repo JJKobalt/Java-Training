@@ -9,6 +9,8 @@ import pl.edu.amu.bawsj.jpaint.shape.Ellipse;
 import pl.edu.amu.bawsj.jpaint.shape.Line;
 import pl.edu.amu.bawsj.jpaint.shape.Shape;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Created by JanJa on 31.12.2016.
  */

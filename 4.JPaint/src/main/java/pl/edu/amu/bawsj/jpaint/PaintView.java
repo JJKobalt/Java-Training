@@ -145,7 +145,8 @@ public class PaintView extends Application {
        Button DrawCurve = (Button) root.lookup("#drawCurveButton");
         DrawCurve.setOnMouseClicked(event -> application.changeState(new DrawingWithBrushState(application)));
 
-
+        Button RecognizeEquation = (Button) root.lookup("#tryRecognizeButton");
+        RecognizeEquation.setOnMouseClicked(event -> application.tryRecognizeEquation());
 
         Button showStackButton = (Button) root.lookup("#showStackButton");
         showStackButton.setOnMouseClicked(event ->{

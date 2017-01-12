@@ -11,6 +11,9 @@ configure(subprojects - project(':0.Reveal')) {
 
         compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.5'
         compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.5'
+// https://mvnrepository.com/artifact/org.encog/encog-core
+        compile group: 'org.encog', name: 'encog-core', version: '3.2.0'
+
         testCompile 'junit:junit:4.12'
         testCompile "org.mockito:mockito-all:1.10.19"
     }

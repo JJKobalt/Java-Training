@@ -2,9 +2,12 @@ package pl.edu.amu.bawsj.jpaint;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import pl.edu.amu.bawsj.encog.numerrecognition.ImageNumberReader.ImageNumberReader;
 import pl.edu.amu.bawsj.jpaint.Commands.*;
 import pl.edu.amu.bawsj.jpaint.State.AppState;
 import pl.edu.amu.bawsj.jpaint.DrawingStyle.DrawingStyle;
+
+import java.awt.image.BufferedImage;
 
 /**
  * Created by JanJa on 07.12.2016.
@@ -15,7 +18,7 @@ public class PaintApplication {
     private AppState state;
     PaintView paintView;
     CommandStack commandStack;
-
+    ImageNumberReader imageNumberReader;
 
 
 
@@ -24,6 +27,7 @@ public class PaintApplication {
         document = new Document(this);
         commandStack = new CommandStack();
 
+        imageNumberReader = new ImageNumberReader();
     }
 
 
@@ -118,5 +122,13 @@ commandStack.printCommandStackInConsole();
 
     public int getBrushSize() {
         return paintView.getBrushSize();
+    }
+
+    public void tryRecognizeEquation() {
+        System.out.println("tryRecognizeEquation started");
+        BufferedImage image = document.getCurrentLayer().getLayerAsBufferedImage();
+        String answer = imageNumberReader.ReadFromImage(image);
+        System.out.println(answer);
+        System.out.println("tryRecognizeEquation finished");
     }
 }
