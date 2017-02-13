@@ -8,13 +8,15 @@ import pl.edu.amu.bawsj.javafx.b.calculations.CalculationStrategy;
 public class SetSecondNumberState implements CalculatorState {
 
     private CalculatorModel model;
-    private CalculatorPresenter presenter;
 
-    SetSecondNumberState(CalculatorModel model, CalculatorPresenter presenter) {
+
+    SetSecondNumberState(CalculatorModel model) {
 
         this.model = model;
-        this.presenter = presenter;
+
     }
+
+
 
 
     @Override
@@ -26,9 +28,9 @@ public class SetSecondNumberState implements CalculatorState {
     @Override
     public void addCalculation() {
         model.secondNumber =Double.valueOf( model.takeFromLine());
-        model.firstNumber = presenter.calculation.calculate();
-        presenter.calculatorState = new setCalculationState(model, presenter);
-        presenter.calculatorState.addCalculation();
+        model.firstNumber = model.calculation.calculate();
+        model.calculatorState = new setCalculationState(model);
+        model.calculatorState.addCalculation();
 
     }
 
@@ -37,9 +39,9 @@ public class SetSecondNumberState implements CalculatorState {
     public void perform() {
         model.secondNumber =Double.valueOf( model.takeFromLine());
 
-        Double result = presenter.calculation.calculate();
+        Double result = model.calculation.calculate();
         model.addToLine(result.toString());
-        presenter.calculatorState = new CalculationFinishedState(model, presenter);
+        model.calculatorState = new CalculationFinishedState(model);
 
     }
 

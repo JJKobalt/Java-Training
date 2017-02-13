@@ -6,18 +6,18 @@ package pl.edu.amu.bawsj.javafx.b;
 class StartState implements CalculatorState {
 
     private CalculatorModel model;
-    private CalculatorPresenter presenter;
 
-    StartState(CalculatorModel model, CalculatorPresenter presenter) {
+
+    StartState(CalculatorModel model) {
         this.model = model;
-        this.presenter = presenter;
+
     }
 
     @Override
     public void addNumber(String number) {
         model.flushLine();
-        presenter.calculatorState= new SetFirstNumberState(model,presenter);
-        presenter.calculatorState.addNumber(number);
+        model.calculatorState= new SetFirstNumberState(model);
+        model.calculatorState.addNumber(number);
 
     }
 

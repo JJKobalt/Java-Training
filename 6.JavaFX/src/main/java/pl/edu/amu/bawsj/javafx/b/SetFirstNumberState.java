@@ -10,23 +10,24 @@ public class SetFirstNumberState implements CalculatorState {
 
 
     private CalculatorModel model;
-    private CalculatorPresenter presenter;
 
-    SetFirstNumberState(CalculatorModel model, CalculatorPresenter presenter) {
+
+    SetFirstNumberState(CalculatorModel model) {
 
         this.model = model;
-        this.presenter = presenter;
+
     }
 
     @Override
     public void addNumber(String number) {
+
         model.addToLine(number);
     }
 
     @Override
     public void addCalculation() {
         model.firstNumber = Double.valueOf( model.takeFromLine());
-        presenter.calculatorState = new setCalculationState(model,presenter);
+        model.calculatorState = new setCalculationState(model);
     }
 
 

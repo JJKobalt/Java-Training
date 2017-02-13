@@ -6,24 +6,24 @@ package pl.edu.amu.bawsj.javafx.b;
 class CalculationFinishedState implements CalculatorState {
 
     private CalculatorModel model;
-    private CalculatorPresenter presenter;
 
-    CalculationFinishedState(CalculatorModel model, CalculatorPresenter presenter) {
+
+    CalculationFinishedState(CalculatorModel model) {
         this.model = model;
-        this.presenter = presenter;
+
     }
 
     @Override
     public void addNumber(String number) {
-        presenter.calculatorState = new SetFirstNumberState(model, presenter);
+        model.calculatorState = new SetFirstNumberState(model);
         model.flushLine();
-        presenter.calculatorState.addNumber(number);
+        model.calculatorState.addNumber(number);
     }
 
     @Override
     public void addCalculation() {
-        presenter.calculatorState = new SetFirstNumberState(model, presenter);
-        presenter.calculatorState.addCalculation();
+        model.calculatorState = new SetFirstNumberState(model);
+        model.calculatorState.addCalculation();
     }
 
     @Override
@@ -31,7 +31,7 @@ class CalculationFinishedState implements CalculatorState {
         model.firstNumber=Double.valueOf(model.line.getValueSafe());
 
         model.flushLine();
-        Double result = presenter.calculation.calculate();
+        Double result = model.calculation.calculate();
         model.addToLine(result.toString());
 
 
