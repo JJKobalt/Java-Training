@@ -1,4 +1,4 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader.NeuronNetwork;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.NeuronNetwork;
 
 import java.util.HashMap;
 
@@ -10,7 +10,12 @@ public class HashMapParser {
     private HashMap<String, double[]> stringToArrayHashMap;
     private HashMap<Integer, String> outputIntCodeToStringHashMap;
 
-    void initializeStringToArrayHashMap() {
+    public HashMapParser() {
+        initializeStringToArrayHashMap();
+        initializeIntCodeToStringHashMap();
+    }
+
+  private   void initializeStringToArrayHashMap() {
         stringToArrayHashMap = new HashMap<>();
         stringToArrayHashMap.put("0", new double[]{1.0, 0.0, 0.0, 0.0, 0.0,
                 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -79,7 +84,7 @@ public class HashMapParser {
 
     }
 
-    void initializeIntCodeToStringHashMap() {
+  private   void initializeIntCodeToStringHashMap() {
         outputIntCodeToStringHashMap = new HashMap<>();
         outputIntCodeToStringHashMap.put(0, "0");
         outputIntCodeToStringHashMap.put(1, "1");
@@ -97,7 +102,7 @@ public class HashMapParser {
         outputIntCodeToStringHashMap.put(13, ":");
         outputIntCodeToStringHashMap.put(14, "/");
         outputIntCodeToStringHashMap.put(15, "=");
-        outputIntCodeToStringHashMap.put(16, "?");
+
     }
 
     public String intCodeToString(int i) {

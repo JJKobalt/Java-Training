@@ -1,7 +1,7 @@
 package pl.edu.amu.bawsj.jpaint;
 
 
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.FromImageNumberReader;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.FromImageNumberReader;
 import pl.edu.amu.bawsj.javafx.b.CalculatorModel;
 
 import java.awt.image.BufferedImage;
@@ -54,7 +54,6 @@ public class ImageCalculator {
             if (s == ':') {
                 calculator.addDivision();
             }
-
 
 
         }

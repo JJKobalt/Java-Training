@@ -1,9 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImage;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImageCutter.BitImageCutter;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BoardArray;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.Letter;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImage;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImageCutter.BitImageCutter;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.Letter;
 
 import java.io.IOException;
 import java.util.List;

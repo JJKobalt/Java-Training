@@ -1,6 +1,6 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter;
 
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImageCutter.BitImageCutter;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImageCutter.BitImageCutter;
 
 
 import java.awt.*;

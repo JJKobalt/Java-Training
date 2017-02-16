@@ -1,7 +1,4 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter;
 
 /**
  * Created by JanJa on 11.02.2017.

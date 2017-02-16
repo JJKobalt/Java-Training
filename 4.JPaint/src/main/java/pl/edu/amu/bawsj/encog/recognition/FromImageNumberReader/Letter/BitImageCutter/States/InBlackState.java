@@ -1,8 +1,8 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImageCutter.States;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImageCutter.States;
 
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.ColorBinary;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImage;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImageCutter.ChangeCuttingStateListener;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.ColorBinary;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImage;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImageCutter.ChangeCuttingStateListener;
 
 import java.util.LinkedList;
 import java.util.List;

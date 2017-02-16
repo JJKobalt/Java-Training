@@ -1,4 +1,4 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter;
 
 import java.util.Arrays;
 
@@ -52,7 +52,7 @@ public class Letter {
     }
 
 
-    private void cutRedundantLines() {
+    public void cutRedundantLines() {
         cutAtTop();
         cutAtBottom();
     }

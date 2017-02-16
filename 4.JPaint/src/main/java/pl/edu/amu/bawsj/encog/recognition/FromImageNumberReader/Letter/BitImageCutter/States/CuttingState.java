@@ -1,4 +1,4 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImageCutter.States;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImageCutter.States;
 
 /**
  * Created by JanJa on 11.02.2017.

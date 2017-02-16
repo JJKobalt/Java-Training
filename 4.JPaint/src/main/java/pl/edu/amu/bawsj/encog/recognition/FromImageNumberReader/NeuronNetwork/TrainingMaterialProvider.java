@@ -1,4 +1,4 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader.NeuronNetwork;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.NeuronNetwork;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ import java.util.regex.Pattern;
 /**
  * Created by JanJa on 08.01.2017.
  */
-public class TrainingMaterialReader {
+public class TrainingMaterialProvider {
 
-    String fileName = "trainingMaterial.txt";
+    final String fileName = "trainingMaterial.txt";
     String filePath;
     List<double[]> input;
     List<double[]> idealOutput;
@@ -20,11 +20,11 @@ public class TrainingMaterialReader {
 
 
 
-    public TrainingMaterialReader() {
+    public TrainingMaterialProvider() {
         hashMapParser= new HashMapParser();
         ClassLoader classLoader = getClass().getClassLoader();
         filePath = classLoader.getResource(fileName).getPath();
-        hashMapParser.initializeStringToArrayHashMap();
+
         input = new ArrayList<>();
         idealOutput = new ArrayList<>();
         readTrainingFile();

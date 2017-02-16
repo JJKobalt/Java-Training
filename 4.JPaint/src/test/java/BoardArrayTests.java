@@ -1,6 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BoardArray;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BoardArray;
 
 /**
  * Created by JanJa on 11.02.2017.

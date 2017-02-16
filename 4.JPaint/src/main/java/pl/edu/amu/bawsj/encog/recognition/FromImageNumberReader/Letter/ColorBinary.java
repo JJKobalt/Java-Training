@@ -1,4 +1,4 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter;
 
 /**
  * Created by JanJa on 06.01.2017.

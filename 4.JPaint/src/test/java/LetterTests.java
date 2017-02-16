@@ -1,12 +1,19 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImage;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BoardArray;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.Letter;
+import org.junit.runner.RunWith;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImage;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BoardArray;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.Letter;
 
 /**
  * Created by JanJa on 12.02.2017.
  */
+
 public class LetterTests {
 
     @Test
@@ -14,16 +21,28 @@ public class LetterTests {
         int[][] arr = {{1, 1, 0}, {1, 1, 0}, {1, 1, 0}};
         BitImage bitImage = new BitImage(arr);
         Letter letter = new Letter(bitImage);
-
+        Assert.assertNotNull(letter);
     }
 
 
     @Test
-    public void removeRedundantTopLinesShouldWork() {
-        int[][] arr = {{1, 1, 1}, {1, 1, 0}, {1, 1, 0}, {1, 1, 1}};
+    public void removeRedundantLinesShouldWork() {
+
+
+        int[][] arrWR = {{1, 1, 1}, {1, 1, 0}, {1, 1, 0}, {1, 1, 1}};
+        int[][] arr = {{1, 1, 0}, {1, 1, 0}};
+        BitImage bitImageWR = new BitImage(arrWR);
+        Letter letterWR = new Letter(bitImageWR);
+
+
         BitImage bitImage = new BitImage(arr);
         Letter letter = new Letter(bitImage);
+
         System.out.println(letter.toString());
+        System.out.println(letterWR.toString());
+        Assert.assertEquals(letter.toString(), letterWR.toString());
+
+
     }
 
 
@@ -60,7 +79,7 @@ public class LetterTests {
         int[][] arr = {{0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1,0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -98,7 +117,7 @@ public class LetterTests {
 
 
     @Test
-    public void LettershouldTranslateToDoubleArray() {
+    public void LettersShouldTranslateToDoubleArray() {
         int[][] arr = {{1, 1, 0}, {1, 1, 0}, {1, 1, 0}};
         BitImage bitImage = new BitImage(arr);
         Letter letter = new Letter(bitImage);

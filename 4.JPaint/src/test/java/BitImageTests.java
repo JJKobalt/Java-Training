@@ -2,7 +2,7 @@
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImage;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

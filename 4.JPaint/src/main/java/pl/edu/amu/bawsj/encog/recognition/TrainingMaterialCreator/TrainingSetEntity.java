@@ -1,4 +1,4 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.TrainingMaterialCreator;
+package pl.edu.amu.bawsj.encog.recognition.TrainingMaterialCreator;
 
 /**
  * Created by JanJa on 13.02.2017.

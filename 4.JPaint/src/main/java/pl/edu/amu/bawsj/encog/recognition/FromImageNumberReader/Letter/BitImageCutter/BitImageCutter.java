@@ -1,9 +1,9 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImageCutter;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImageCutter;
 
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImage;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImageCutter.States.CuttingState;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.BitImageCutter.States.InWhiteState;
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.Letter;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImage;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImageCutter.States.CuttingState;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImageCutter.States.InWhiteState;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.Letter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -27,7 +27,8 @@
             <TextField fx:id="brushSizeTextField" layoutX="770.0" layoutY="44.0" prefHeight="25.0" prefWidth="44.0" />
             <Label layoutX="704.0" layoutY="48.0" text="Brush Size" />
             <Button fx:id="drawCurveButton" layoutX="245.0" layoutY="56.0" mnemonicParsing="false" text="Draw Curve" />
-            <Button fx:id="tryRecognizeButton" layoutX="473.0" layoutY="53.0" mnemonicParsing="false" text="try to recognize equation" />
+            <Button fx:id="tryRecognizeButton" layoutX="474.0" layoutY="22.0" mnemonicParsing="false" text="try to recognize equation" />
+            <TextField fx:id="recognitionTextField" layoutX="475.0" layoutY="53.0" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>

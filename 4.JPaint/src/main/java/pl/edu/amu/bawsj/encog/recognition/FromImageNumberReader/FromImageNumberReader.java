@@ -1,6 +1,8 @@
-package pl.edu.amu.bawsj.encog.numerrecognition.newReader;
+package pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader;
 
-import pl.edu.amu.bawsj.encog.numerrecognition.newReader.NeuronNetwork.NeuronInterpeter;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.BitImage;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.Letter.Letter;
+import pl.edu.amu.bawsj.encog.recognition.FromImageNumberReader.NeuronNetwork.NeuronInterpreter;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -11,10 +13,10 @@ import java.util.List;
  */
 public class FromImageNumberReader {
 
-    NeuronInterpeter neuronInterpeter;
+    NeuronInterpreter neuronInterpreter;
 
   public   FromImageNumberReader() {
-        neuronInterpeter = new NeuronInterpeter();
+        neuronInterpreter = new NeuronInterpreter();
 
     }
 
@@ -25,7 +27,7 @@ public class FromImageNumberReader {
         List<double[]> listOfDoubles = fromImageToDoubleList(image);
 
         for (double[] input:listOfDoubles) {
-            sb.append(neuronInterpeter.resolveArrayToString(input));
+            sb.append(neuronInterpreter.resolveArrayToString(input));
         }
         return sb.toString();
     }
@@ -41,7 +43,6 @@ public class FromImageNumberReader {
 
         for (Letter letter : letters) {
             doubleList.add(letter.toDoubleArray());
-
         }
 
         return doubleList;

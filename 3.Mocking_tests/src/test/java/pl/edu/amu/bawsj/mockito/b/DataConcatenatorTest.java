@@ -36,17 +36,10 @@ public class DataConcatenatorTest {
 
 
         Mockito.doAnswer(invocation -> {
-                    //Pytanie: ten przykład działa
+
                     data.setA("XXX");
                     data.setB("XXX");
-
-                    //Ale ten sposób
-                    //data = new Data("ZZZ","ZZZ");
-                    // Już nie, dlaczego?
-
-            // dlatego, ze tworzysz tutaj nowy obiekt, a masz zmienić tylko ten co dostaniesz.
-
-                    return null;
+    return null;
                 }
         ).when(dataChanger).change(Matchers.anyObject());
 

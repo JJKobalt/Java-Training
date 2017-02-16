@@ -109,6 +109,7 @@ commandStack.printCommandStackInConsole();
 
     public void handleMouseButtonRelesed(double x, double y, GraphicsContext gc) {
         state.handleMouseButtonRelesed(x,y,gc);
+        tryRecognizeEquation();
     }
 
     public void handleMouseButtonDragged(double x, double y, GraphicsContext gc) {
@@ -128,7 +129,7 @@ commandStack.printCommandStackInConsole();
 
         BufferedImage image = document.getCurrentLayer().getLayerAsBufferedImage();
         String answer = calculator.readFromImage(image);
-
+paintView.setRecognitedText(answer);
         System.out.println(answer);
 
     }
